@@ -7,7 +7,7 @@ class SystemMonitor extends Webiny.Module {
         const Menu = Webiny.Ui.Menu;
 
         this.registerMenus(
-            new Menu('DevTools', [
+            new Menu('System', [
                 new Menu('System Monitor', 'SystemMonitor.Dashboard')
             ], 'icon-tools').setRole('administrator')
         );
