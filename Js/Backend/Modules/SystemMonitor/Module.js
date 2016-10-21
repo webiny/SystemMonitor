@@ -5,7 +5,6 @@ class SystemMonitor extends Webiny.Module {
 
     init() {
         const Menu = Webiny.Ui.Menu;
-
         this.registerMenus(
             new Menu('System', [
                 new Menu('System Monitor', 'SystemMonitor.Dashboard')
