@@ -188,51 +188,55 @@ ServerDashboard.defaultProps = {
                             and place it anywhere you want on the server. After that add a crontab entry to run this script every minute,
                             ex:
                         </p>
-                        <code>* * * * * php ~/www/monitor/agent.php</code>
+                        <code>* * * * * php ~/www/monitor/webiny-agent.php</code>
                     </Ui.Grid.Col>
                     <Ui.Grid.Col all={3}>{agentDownload}</Ui.Grid.Col>
                 </Ui.Hide>
                 <Ui.Hide if={this.state.snapshots.length === 0}>
-                    <Ui.Grid.Col all={12}>
-                        {agentDownload}
-                        <Ui.Button
-                            align="right"
-                            onClick={() => this.loadStats(this.state.snapshotsRange)}
-                            type="secondary"
-                            label="Refresh"
-                            icon="fa-refresh"/>
-                    </Ui.Grid.Col>
-                    <Ui.Grid.Col all={6}>
-                        <Ui.View.ChartBlock title="CPU usage (%)" description={change}>
-                            <Graph config={this.getCpuConfig(this.state.snapshots)}/>
-                        </Ui.View.ChartBlock>
-                    </Ui.Grid.Col>
-                    <Ui.Grid.Col all={6}>
-                        <Ui.View.ChartBlock title="Memory usage (%)" description={change}>
-                            <Graph config={this.getMemoryConfig(this.state.snapshots)}/>
-                        </Ui.View.ChartBlock>
-                    </Ui.Grid.Col>
-                    <Ui.Grid.Col all={3}>
-                        <Ui.View.ChartBlock title="Disk usage (%)">
-                            <Graph config={this.getDiskConfig(disk)}/>
-                        </Ui.View.ChartBlock>
-                    </Ui.Grid.Col>
-                    <Ui.Grid.Col all={9}>
-                        <Ui.View.ChartBlock title="System load averages">
-                            <Ui.Grid.Col all={4}>
-                                <h3 className="text-center">1 min</h3>
-                                <Graph config={this.getLoadAverageConfig('1 minute', _.get(loadAverage, 1))}/>
-                            </Ui.Grid.Col>
-                            <Ui.Grid.Col all={4}>
-                                <h3 className="text-center">5 min</h3>
-                                <Graph config={this.getLoadAverageConfig('5 minutes', _.get(loadAverage, 5))}/>
-                            </Ui.Grid.Col>
-                            <Ui.Grid.Col all={4}>
-                                <h3 className="text-center">15 min</h3>
-                                <Graph config={this.getLoadAverageConfig('15 minutes', _.get(loadAverage, 15))}/>
-                            </Ui.Grid.Col>
-                        </Ui.View.ChartBlock>
-                    </Ui.Grid.Col>
+                    <Ui.Grid.Row>
+                        <Ui.Grid.Col all={12}>
+                            {agentDownload}
+                            <Ui.Button
+                                align="right"
+                                onClick={() => this.loadStats(this.state.snapshotsRange)}
+                                type="secondary"
+                                label="Refresh"
+                                icon="fa-refresh"/>
+                        </Ui.Grid.Col>
+                    </Ui.Grid.Row>
+                    <Ui.Grid.Row>
+                        <Ui.Grid.Col all={6}>
+                            <Ui.View.ChartBlock title="CPU usage (%)" description={change}>
+                                <Graph config={this.getCpuConfig(this.state.snapshots)}/>
+                            </Ui.View.ChartBlock>
+                        </Ui.Grid.Col>
+                        <Ui.Grid.Col all={6}>
+                            <Ui.View.ChartBlock title="Memory usage (%)" description={change}>
+                                <Graph config={this.getMemoryConfig(this.state.snapshots)}/>
+                            </Ui.View.ChartBlock>
+                        </Ui.Grid.Col>
+                        <Ui.Grid.Col all={3}>
+                            <Ui.View.ChartBlock title="Disk usage (%)">
+                                <Graph config={this.getDiskConfig(disk)}/>
+                            </Ui.View.ChartBlock>
+                        </Ui.Grid.Col>
+                        <Ui.Grid.Col all={9}>
+                            <Ui.View.ChartBlock title="System load averages">
+                                <Ui.Grid.Col all={4}>
+                                    <h3 className="text-center">1 min</h3>
+                                    <Graph config={this.getLoadAverageConfig('1 minute', _.get(loadAverage, 1))}/>
+                                </Ui.Grid.Col>
+                                <Ui.Grid.Col all={4}>
+                                    <h3 className="text-center">5 min</h3>
+                                    <Graph config={this.getLoadAverageConfig('5 minutes', _.get(loadAverage, 5))}/>
+                                </Ui.Grid.Col>
+                                <Ui.Grid.Col all={4}>
+                                    <h3 className="text-center">15 min</h3>
+                                    <Graph config={this.getLoadAverageConfig('15 minutes', _.get(loadAverage, 15))}/>
+                                </Ui.Grid.Col>
+                            </Ui.View.ChartBlock>
+                        </Ui.Grid.Col>
+                    </Ui.Grid.Row>
                 </Ui.Hide>
             </Ui.Grid.Row>
         );
