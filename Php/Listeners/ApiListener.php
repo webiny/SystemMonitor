@@ -6,6 +6,7 @@ use Apps\Core\Php\DevTools\WebinyTrait;
 use Apps\Core\Php\RequestHandlers\ApiEvent;
 use Apps\SystemMonitor\Php\Entities\ApiSlowLog;
 use Apps\SystemMonitor\Php\Entities\ApiSnapshot;
+use Apps\SystemMonitor\Php\Entities\Setting;
 
 class ApiListener
 {
@@ -27,15 +28,25 @@ class ApiListener
 
     private function logEntry($cacheHit)
     {
+        // check that api monitor is active
+        $settings = Setting::load('system-monitor');
+        if (!$settings) {
+            return false;
+        }
+        $settings = $settings->settings->apiMonitor;
+        if($settings['status']<1){
+            return false;
+        }
+        
         // get response time in milliseconds
-        $responseTime = getrusage()['ru_utime.tv_sec'];
+        $responseTime = round((microtime(true) - $this->wRequest()->server()->requestTime(true))*1000);
 
         // log request
         $apiSnapshot = new ApiSnapshot();
         $apiSnapshot->logRequest($responseTime, $cacheHit);
 
         // log slow api
-        if ($responseTime > 200) { // slow query threshold @todo add to config
+        if ($responseTime >= $settings['slowLogThreshold']) {
 
             $slowLog = ApiSlowLog::findOne(['url' => $this->wRequest()->getCurrentUrl()]);
             if ($slowLog && $slowLog->method == $this->wRequest()->getRequestMethod()) {
