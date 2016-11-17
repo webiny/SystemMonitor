@@ -44,7 +44,7 @@ Dashboard.defaultProps = {
         return (
             <Ui.View.Dashboard>
                 <Ui.View.Header
-                    title="System Monitor"
+                    title="Resource Monitor"
                     description="Here you can monitor your servers. Once you setup server agents, data from your servers will be available in this dashboard.">
                     <Ui.Button align="right" type="primary" icon="icon-plus-circled" onClick={this.ui('addServer:show')} label="Add server"/>
                     <Ui.Button align="right" type="secondary" icon="icon-cog" onClick={this.ui('settingsModal:show')} label="Setup alarms"/>

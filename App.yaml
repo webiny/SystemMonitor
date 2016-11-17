@@ -6,3 +6,12 @@ Description:
 AuthorName: Webiny LTD
 AuthorLink: http://www.webiny.com
 AuthorEmail: info@webiny.com
+
+
+Events:
+    Core:
+        Api:
+            Before:
+                - {Handler: \Apps\SystemMonitor\Php\Listeners\ApiListener::onBefore, Priority: 200}
+            After:
+                - {Handler: \Apps\SystemMonitor\Php\Listeners\ApiListener::onAfter, Priority: 200}

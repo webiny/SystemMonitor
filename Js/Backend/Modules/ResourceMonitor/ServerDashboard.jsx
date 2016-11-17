@@ -188,7 +188,7 @@ ServerDashboard.defaultProps = {
                             and place it anywhere you want on the server. After that add a crontab entry to run this script every minute,
                             ex:
                         </p>
-                        <code>* * * * * php ~/www/monitor/agent.php</code>
+                        <code>* * * * * php ~/www/monitor/webiny-agent.php</code>
                     </Ui.Grid.Col>
                     <Ui.Grid.Col all={3}>{agentDownload}</Ui.Grid.Col>
                 </Ui.Logic.Hide>
