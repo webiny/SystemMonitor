@@ -52,15 +52,15 @@ Dashboard.defaultProps = {
                     <SettingsModal ui="settingsModal"/>
                 </Ui.View.Header>
                 <Ui.View.Body>
-                    <Ui.Hide if={this.state.servers.length > 0 || this.state.loading}>
+                    <Ui.Logic.Hide if={this.state.servers.length > 0 || this.state.loading}>
                         <Ui.Grid.Row>
                             <Ui.Grid.Col all={12}>
                                 {this.state.loading ? <Ui.Loader/> : null}
                                 <p>You have not yet created any servers to monitor. Start by clicking "Add server".</p>
                             </Ui.Grid.Col>
                         </Ui.Grid.Row>
-                    </Ui.Hide>
-                    <Ui.Hide if={this.state.servers.length === 0}>
+                    </Ui.Logic.Hide>
+                    <Ui.Logic.Hide if={this.state.servers.length === 0}>
                         <Ui.Tabs size="large">
                             {this.state.servers.map(s => (
                                 <Ui.Tabs.Tab key={s.id} label={s.name}>
@@ -68,7 +68,7 @@ Dashboard.defaultProps = {
                                 </Ui.Tabs.Tab>
                             ))}
                         </Ui.Tabs>
-                    </Ui.Hide>
+                    </Ui.Logic.Hide>
                 </Ui.View.Body>
             </Ui.View.Dashboard>
         );

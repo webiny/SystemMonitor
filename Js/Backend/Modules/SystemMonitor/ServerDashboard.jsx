@@ -180,7 +180,7 @@ ServerDashboard.defaultProps = {
         return (
             <Ui.Grid.Row>
                 {this.state.loading ? <Ui.Loader/> : null}
-                <Ui.Hide if={this.state.snapshots.length > 0 || this.state.loading}>
+                <Ui.Logic.Hide if={this.state.snapshots.length > 0 || this.state.loading}>
                     <Ui.Grid.Col all={9}>
                         <p>
                             There are no snapshots recorded for this server so far. To start monitoring your server, download an agent
@@ -191,8 +191,8 @@ ServerDashboard.defaultProps = {
                         <code>* * * * * php ~/www/monitor/agent.php</code>
                     </Ui.Grid.Col>
                     <Ui.Grid.Col all={3}>{agentDownload}</Ui.Grid.Col>
-                </Ui.Hide>
-                <Ui.Hide if={this.state.snapshots.length === 0}>
+                </Ui.Logic.Hide>
+                <Ui.Logic.Hide if={this.state.snapshots.length === 0}>
                     <Ui.Grid.Col all={12}>
                         {agentDownload}
                         <Ui.Button
@@ -233,7 +233,7 @@ ServerDashboard.defaultProps = {
                             </Ui.Grid.Col>
                         </Ui.View.ChartBlock>
                     </Ui.Grid.Col>
-                </Ui.Hide>
+                </Ui.Logic.Hide>
             </Ui.Grid.Row>
         );
     }
