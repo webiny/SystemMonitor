@@ -1,0 +1,48 @@
+{
+    "name" : "Manage system performance",
+    "slug" : "system-monitor-manage-all",
+    "description" : "Allows user to perform all actions on System Monitor app",
+    "permissions" : {
+        "entities" : {
+            "Apps\\SystemMonitor\\Php\\Entities\\ApiSlowLog" : {
+                "crudCreate" : true,
+                "crudRead" : true,
+                "crudUpdate" : true,
+                "crudDelete" : true
+            },
+            "Apps\\SystemMonitor\\Php\\Entities\\ApiSnapshot" : {
+                "crudCreate" : true,
+                "crudRead" : true,
+                "crudUpdate" : true,
+                "crudDelete" : true,
+                "stats/{preset}" : {
+                    "get" : true
+                }
+            },
+            "Apps\\SystemMonitor\\Php\\Entities\\Server" : {
+                "crudCreate" : true,
+                "crudRead" : true,
+                "crudUpdate" : true,
+                "crudDelete" : true,
+                "{id}/agent" : {
+                    "get" : true
+                },
+                "{id}/snapshots/{preset}" : {
+                    "get" : true
+                }
+            },
+            "Apps\\SystemMonitor\\Php\\Entities\\Snapshot" : {
+                "crudCreate" : true,
+                "crudRead" : true,
+                "crudUpdate" : true,
+                "crudDelete" : true
+            },
+            "Apps\\SystemMonitor\\Php\\Entities\\Setting" : {
+                "/" : {
+                    "get" : true,
+                    "patch" : true
+                }
+            }
+        }
+    }
+}
