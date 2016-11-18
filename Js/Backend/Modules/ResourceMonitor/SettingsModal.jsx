@@ -16,7 +16,7 @@ class SettingsModal extends Webiny.Ui.ModalComponent {
 
         return (
             <Ui.Modal.Dialog>
-                <Ui.Settings id="system-monitor" api="/entities/system-monitor/settings" onSubmitSuccess={this.hide}>
+                <Ui.Settings api="/entities/system-monitor/settings" onSubmitSuccess={this.hide}>
                     {(model, container) => (
                         <wrapper>
                             <Ui.Form.Loader container={container}/>
@@ -26,9 +26,9 @@ class SettingsModal extends Webiny.Ui.ModalComponent {
                                     Recurring alarms will only send a notification once every 15 minutes.
                                 </Ui.Alert>
                                 <Ui.Form.Fieldset title="Alarms"/>
-                                <Ui.Dynamic.Fieldset name="settings.alarms">
+                                <Ui.Dynamic.Fieldset name="alarms">
                                     <Ui.Dynamic.Row>
-                                        {function (record, actions) {
+                                        {(record, actions) => {
                                             return (
                                                 <Ui.Grid.Row>
                                                     <Ui.Grid.Col all={5}>
@@ -48,7 +48,7 @@ class SettingsModal extends Webiny.Ui.ModalComponent {
                                         }}
                                     </Ui.Dynamic.Row>
                                     <Ui.Dynamic.Empty>
-                                        {function (actions) {
+                                        {actions => {
                                             return (
                                                 <Ui.Grid.Row>
                                                     <Ui.Grid.Col all={12}>
@@ -56,39 +56,39 @@ class SettingsModal extends Webiny.Ui.ModalComponent {
                                                         <Ui.Button type="primary" label="Add alarm" onClick={actions.add()}/>
                                                     </Ui.Grid.Col>
                                                 </Ui.Grid.Row>
-                                            )
+                                            );
                                         }}
                                     </Ui.Dynamic.Empty>
                                 </Ui.Dynamic.Fieldset>
 
                                 <Ui.Form.Fieldset title="Notifications"/>
                                 <Ui.Grid.Row>
-                                    <Ui.Checkbox label="Send message to Slack" grid={12} name="settings.slack"/>
+                                    <Ui.Checkbox label="Send message to Slack" grid={12} name="slack"/>
                                     <Ui.Logic.Hide if={!_.get(model.settings, 'slack')}>
                                         <Ui.Grid.Col all={10} xsOffset={1}>
                                             <Ui.Input
                                                 label="Slack Token"
-                                                name="settings.token"
+                                                name="token"
                                                 validate="required"
                                                 description={<span>Bot token to use when sending notifications. <a target="_blank" href="https://api.slack.com/bot-users">Create your Slack bot here.</a></span>}/>
                                             <Ui.Grid.Row>
                                                 <Ui.Grid.Col all={4}>
-                                                    <Ui.Input label="Team" name="settings.team" validate="required"/>
+                                                    <Ui.Input label="Team" name="team" validate="required"/>
                                                 </Ui.Grid.Col>
                                                 <Ui.Grid.Col all={4}>
-                                                    <Ui.Input label="Channel" name="settings.channel" validate="required"/>
+                                                    <Ui.Input label="Channel" name="channel" validate="required"/>
                                                 </Ui.Grid.Col>
                                                 <Ui.Grid.Col all={4}>
-                                                    <Ui.Input label="Username" name="settings.username" validate="required"/>
+                                                    <Ui.Input label="Username" name="username" validate="required"/>
                                                 </Ui.Grid.Col>
                                             </Ui.Grid.Row>
                                         </Ui.Grid.Col>
                                     </Ui.Logic.Hide>
-                                    <Ui.Checkbox label="Send email" grid={12} name="settings.email"/>
+                                    <Ui.Checkbox label="Send email" grid={12} name="email"/>
                                     <Ui.Logic.Hide if={!_.get(model.settings, 'email')}>
                                         <Ui.Grid.Row>
                                             <Ui.Grid.Col all={10} xsOffset={1}>
-                                                <Ui.Input label="Emails" name="settings.emails" validate="required"/>
+                                                <Ui.Input label="Emails" name="emails" validate="required"/>
                                             </Ui.Grid.Col>
                                         </Ui.Grid.Row>
                                     </Ui.Logic.Hide>

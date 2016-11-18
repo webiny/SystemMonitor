@@ -29,11 +29,11 @@ class ApiListener
     private function logEntry($cacheHit)
     {
         // check that api monitor is active
-        $settings = Setting::load('system-monitor');
+        $settings = Setting::load();
         if (!$settings) {
             return false;
         }
-        $settings = $settings->settings->apiMonitor;
+        $settings = $settings['apiMonitor'];
         if ($settings['status'] < 1) {
             return false;
         }

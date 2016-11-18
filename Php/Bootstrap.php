@@ -12,16 +12,15 @@ class Bootstrap extends AbstractBootstrap
         /**
          * @see http://php.net/manual/en/mongodb.setprofilinglevel.php
          */
-        $settings = Setting::load('system-monitor');
+        $settings = Setting::load();
         if (!$settings) {
             return false;
         }
 
-        $settings = $settings->settings->dbMonitor;
-        if (!$settings['status']) {
+        if (!$settings->keyNested('dbMonitor.status', false, true)) {
             $this->wDatabase()->command(['profile' => 0]);
         } else {
-            $this->wDatabase()->command(['profile' => 1, 'slowms' => intval($settings['slowQueryThreshold'])]);
+            $this->wDatabase()->command(['profile' => 1, 'slowms' => intval($settings->keyNested('dbMonitor.slowQueryThreshold'))]);
         }
     }
 }

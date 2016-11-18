@@ -27,7 +27,8 @@ class Graph extends Webiny.Ui.Component {
         // Let's compare previous and next data
         if (!_.isEqual(columns.previous, columns.next)) {
             if (!this.graph.instance) {
-                return this.createGraph(props);
+                this.createGraph(props);
+                return;
             }
             this.graph.instance.load({
                 columns: props.config.data.columns
@@ -43,7 +44,7 @@ class Graph extends Webiny.Ui.Component {
         setTimeout(this.createGraph, 5);
     }
 
-    createGraph(props = this.props){
+    createGraph(props = this.props) {
         const config = props.config;
         config.bindto = '#' + this.graph.id;
         this.graph.instance = c3.generate(config);
