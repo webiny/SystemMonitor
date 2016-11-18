@@ -95,7 +95,7 @@ class SettingsModal extends Webiny.Ui.ModalComponent {
                                 </Ui.Grid.Row>
                             </Ui.Modal.Body>
                             <Ui.Modal.Footer>
-                                <Ui.Button type="secondary" label="Close" onClick={this.hide}/>
+                                <Ui.Button type="default" label="Close" onClick={this.hide}/>
                                 <Ui.Button type="primary" label="Save" onClick={container.submit}/>
                             </Ui.Modal.Footer>
                         </wrapper>

@@ -9,13 +9,13 @@ class ApiMonitor extends Webiny.Module {
         this.registerMenus(
             new Menu('System', [
                 new Menu('System Monitor', [
-                    new Menu('API Monitor', 'SystemMonitor.ApiMonitor.Dashboard')
+                    new Menu('DB Monitor', 'SystemMonitor.DbMonitor.Dashboard')
                 ])
             ], 'icon-tools').setRole('administrator')
         );
 
         this.registerRoutes(
-            new Webiny.Route('SystemMonitor.ApiMonitor.Dashboard', '/system-monitor/api-monitor', Dashboard, 'API Monitor - Dashboard')
+            new Webiny.Route('SystemMonitor.DbMonitor.Dashboard', '/system-monitor/db-monitor', Dashboard, 'DB Monitor - Dashboard')
         );
     }
 }

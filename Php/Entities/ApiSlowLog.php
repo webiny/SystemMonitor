@@ -15,7 +15,7 @@ use Webiny\Component\Mongo\Index\TextIndex;
  * @property float   responseTime
  * @property integer count
  *
- * @package Apps\Core\Php\Entities
+ * @package Apps\SystemMonitor\Php\Entities
  *
  */
 class ApiSlowLog extends AbstractEntity

@@ -15,7 +15,7 @@ use Webiny\Component\Mongo\Index\SingleIndex;
  * @property integer timeSlot
  * @property integer totalTime
  *
- * @package Apps\Core\Php\Entities
+ * @package Apps\SystemMonitor\Php\Entities
  *
  *
  *

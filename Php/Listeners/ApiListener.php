@@ -34,12 +34,12 @@ class ApiListener
             return false;
         }
         $settings = $settings->settings->apiMonitor;
-        if($settings['status']<1){
+        if ($settings['status'] < 1) {
             return false;
         }
-        
+
         // get response time in milliseconds
-        $responseTime = round((microtime(true) - $this->wRequest()->server()->requestTime(true))*1000);
+        $responseTime = round((microtime(true) - $this->wRequest()->server()->requestTime(true)) * 1000);
 
         // log request
         $apiSnapshot = new ApiSnapshot();

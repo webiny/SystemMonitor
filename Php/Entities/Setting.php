@@ -8,5 +8,5 @@ namespace Apps\SystemMonitor\Php\Entities;
  */
 class Setting extends \Apps\Core\Php\Entities\Setting
 {
-
+    protected static $key = 'system-monitor';
 }

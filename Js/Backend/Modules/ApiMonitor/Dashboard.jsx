@@ -114,7 +114,7 @@ Dashboard.defaultProps = {
         };
 
         const searchProps = {
-            placeholder: 'Search by url',
+            placeholder: 'Search by URL',
             name: '_searchQuery'
         };
 
@@ -122,20 +122,20 @@ Dashboard.defaultProps = {
             <api-monitor>
                 <Ui.View.Dashboard>
                     <Ui.View.Header
-                        title="Api Monitor"
+                        title="API Monitor"
                         description="This dashboard shows API response times and cache efficiency.">
                     </Ui.View.Header>
                     <Ui.View.Body>
 
                         <Ui.Grid.Row>
                             <Ui.Grid.Col all={6}>
-                                <Ui.View.ChartBlock title="Api Requests" description={change}>
+                                <Ui.View.ChartBlock title="API Requests" description={change}>
                                     <Graph config={this.getApiRequests(this.state.snapshots)}/>
                                 </Ui.View.ChartBlock>
                             </Ui.Grid.Col>
 
                             <Ui.Grid.Col all={6}>
-                                <Ui.View.ChartBlock title="Api Response Time" description={change}>
+                                <Ui.View.ChartBlock title="API Response Time" description={change}>
                                     <Graph config={this.getResponseTime(this.state.snapshots)}/>
                                 </Ui.View.ChartBlock>
                             </Ui.Grid.Col>
@@ -148,7 +148,7 @@ Dashboard.defaultProps = {
 
                 <Ui.View.List>
                     <Ui.View.Body>
-                        <h2>Slow Api Log</h2>
+                        <h2>API Log</h2>
                         <Ui.List {...listProps}>
                             <Ui.List.FormFilters>
                                 {(applyFilters, resetFilters) => (
@@ -166,7 +166,7 @@ Dashboard.defaultProps = {
                             <Table>
                                 <Table.Row>
                                     <Table.Field name="method" align="left" label="Method" sort="method"/>
-                                    <Table.Field name="url" align="left" label="Url" sort="Url"/>
+                                    <Table.Field name="url" align="left" label="URL" sort="url"/>
                                     <Table.Field name="referer" align="left" label="Referer" sort="referer"/>
                                     <Table.Field name="responseTime" align="center" label="Response Time" sort="responseTime"/>
                                 </Table.Row>

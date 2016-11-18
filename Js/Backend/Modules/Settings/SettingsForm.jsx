@@ -16,18 +16,34 @@ SettingsForm.defaultProps = {
                             description="Set your system monitor settings here"/>
                         <Ui.View.Body>
                             <Ui.Grid.Row>
-                                <Ui.Form.Fieldset title="Api Monitor"/>
+                                <Ui.Form.Fieldset title="API Monitor"/>
                                 <Ui.Grid.Col all={6}>
                                     <Ui.Switch
-                                        label="Api monitor"
+                                        label="API monitor"
                                         name="settings.apiMonitor.status"
-                                        validate="required"
-                                        description="Turn Api monitor on or off"/>
+                                        description="Turn API monitor on or off"/>
                                     <Ui.Input
                                         label="Slow log threshold"
                                         name="settings.apiMonitor.slowLogThreshold"
-                                        validate="required"
+                                        validate={_.get(model, 'settings.apiMonitor.status', false) ? 'required,gte:0' : null}
                                         description="All API responses above this response time will be logged to the slow log. Note: response time is defined in milliseconds."/>
+                                </Ui.Grid.Col>
+                                <Ui.Grid.Col all={6}>
+
+                                </Ui.Grid.Col>
+                            </Ui.Grid.Row>
+                            <Ui.Grid.Row>
+                                <Ui.Form.Fieldset title="Database Monitor"/>
+                                <Ui.Grid.Col all={6}>
+                                    <Ui.Switch
+                                        label="Database monitor"
+                                        name="settings.dbMonitor.status"
+                                        description="Turn DB monitor on or off"/>
+                                    <Ui.Input
+                                        label="Slow query threshold"
+                                        name="settings.dbMonitor.slowQueryThreshold"
+                                        validate={_.get(model, 'settings.dbMonitor.status', false) ? 'required,gte:0' : null}
+                                        description="All DB queries above this response time will be logged. Note: response time is defined in milliseconds."/>
                                 </Ui.Grid.Col>
                                 <Ui.Grid.Col all={6}>
 
