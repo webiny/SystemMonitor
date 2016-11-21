@@ -47,23 +47,23 @@ class ApiSnapshot extends AbstractEntity
                     break;
 
                 case '3h':
-                    $query = ['timeSlot' => ['$gte' => time() - (10800), '$lte' => time()]];
+                    $query = ['timeSlot' => ['$gte' => time() - 10800, '$lte' => time()]];
                     break;
 
                 case '6h':
-                    $query = ['timeSlot' => ['$gte' => time() - (21600), '$lte' => time()]];
+                    $query = ['timeSlot' => ['$gte' => time() - 21600, '$lte' => time()]];
                     break;
 
                 case '24h':
-                    $query = ['timeSlot' => ['$gte' => time() - (86400), '$lte' => time()]];
+                    $query = ['timeSlot' => ['$gte' => time() - 86400, '$lte' => time()]];
                     break;
 
                 case '7d':
-                    $query = ['timeSlot' => ['$gte' => time() - (604800), '$lte' => time()]];
+                    $query = ['timeSlot' => ['$gte' => time() - 604800, '$lte' => time()]];
                     break;
 
                 case '30d':
-                    $query = ['timeSlot' => ['$gte' => time() - (2592000), '$lte' => time()]];
+                    $query = ['timeSlot' => ['$gte' => time() - 2592000, '$lte' => time()]];
                     break;
 
                 default:
@@ -98,11 +98,10 @@ class ApiSnapshot extends AbstractEntity
      */
     private function getEntry()
     {
-        // get timeslot
+        // get time slot
         $minuteSlot = date('i');
-        if ($minuteSlot >= 0 && $minuteSlot <= 9) {
-            $min = 0;
-        } elseif ($minuteSlot >= 10 && $minuteSlot <= 19) {
+        $min = 0;
+        if ($minuteSlot >= 10 && $minuteSlot <= 19) {
             $min = 10;
         } elseif ($minuteSlot >= 20 && $minuteSlot <= 29) {
             $min = 20;
