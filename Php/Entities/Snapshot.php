@@ -21,6 +21,7 @@ class Snapshot extends AbstractEntity
     {
         parent::__construct();
         $this->index(new SingleIndex('createdOn', 'createdOn', null, false, false, 5184000)); // delete records after 2 months
+        $this->index(new SingleIndex('server', 'server'));
         $this->attributes->removeKey(['deletedOn', 'deletedBy', 'modifiedOn', 'modifiedBy']);
         $this->attr('server')->many2one()->setEntity('Apps\SystemMonitor\Php\Entities\Server');
         $this->attr('time')->object()->onGet(function ($value) {
@@ -38,5 +39,8 @@ class Snapshot extends AbstractEntity
             return $value;
         });
         $this->attr('stats')->object()->setToArrayDefault();
+
+        // We must allow CRUD CREATE requests for agent scripts - which do not have authorization token.
+        $this->api('POST', '/')->setAuthorization(false);
     }
 }

@@ -87,6 +87,8 @@ class Server extends AbstractEntity
                 ]
             ];
 
+            // TODO: need to add check for missing intervals and insert 0 stats to keep chart consistent across time.
+
             return Snapshot::find($query, ['createdOn' => 1])->toArray();
         });
     }
