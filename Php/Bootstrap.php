@@ -3,7 +3,7 @@ namespace Apps\SystemMonitor\Php;
 
 use Apps\Core\Php\DevTools\AbstractBootstrap;
 use Apps\Core\Php\PackageManager\App;
-use Apps\SystemMonitor\Php\Entities\Setting;
+use Apps\SystemMonitor\Php\Entities\Settings;
 
 class Bootstrap extends AbstractBootstrap
 {
@@ -12,7 +12,7 @@ class Bootstrap extends AbstractBootstrap
         /**
          * @see http://php.net/manual/en/mongodb.setprofilinglevel.php
          */
-        $settings = Setting::load();
+        $settings = Settings::load();
         if (!$settings) {
             return false;
         }

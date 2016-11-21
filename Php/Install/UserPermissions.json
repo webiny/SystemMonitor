@@ -37,7 +37,7 @@
                 "crudUpdate" : true,
                 "crudDelete" : true
             },
-            "Apps\\SystemMonitor\\Php\\Entities\\Setting" : {
+            "Apps\\SystemMonitor\\Php\\Entities\\Settings" : {
                 "/" : {
                     "get" : true,
                     "patch" : true

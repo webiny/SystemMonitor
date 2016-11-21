@@ -6,7 +6,7 @@ use Apps\Core\Php\DevTools\WebinyTrait;
 use Apps\Core\Php\RequestHandlers\ApiEvent;
 use Apps\SystemMonitor\Php\Entities\ApiSlowLog;
 use Apps\SystemMonitor\Php\Entities\ApiSnapshot;
-use Apps\SystemMonitor\Php\Entities\Setting;
+use Apps\SystemMonitor\Php\Entities\Settings;
 
 class ApiListener
 {
@@ -29,7 +29,7 @@ class ApiListener
     private function logEntry($cacheHit)
     {
         // check that api monitor is active
-        $settings = Setting::load();
+        $settings = Settings::load();
         if (!$settings) {
             return false;
         }
