@@ -1,8 +1,10 @@
-{
-    "name": "System Monitor Manager",
-    "slug": "system-monitor-manager",
-    "description": "Manage System Monitor",
-    "permissions": [
-        "system-monitor-manage-all"
-    ]
-}
+[
+    {
+        "name": "System Monitor Manager",
+        "slug": "system-monitor-manager",
+        "description": "Manage System Monitor",
+        "permissions": [
+            "system-monitor-manage-all"
+        ]
+    }
+]
