@@ -40,7 +40,8 @@ class Snapshot extends AbstractEntity
         });
         $this->attr('stats')->object()->setToArrayDefault();
 
-        // We must allow CRUD CREATE requests for agent scripts - which do not have authorization token.
-        $this->api('POST', '/')->setAuthorization(false);
+        // We must allow CRUD CREATE requests for agent scripts
+        // TODO: see if this has to be public or maybe include system token in agent scripts?
+        $this->api('POST', '/')->setPublic();
     }
 }
