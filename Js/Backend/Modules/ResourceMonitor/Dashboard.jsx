@@ -22,7 +22,7 @@ class Dashboard extends Webiny.Ui.View {
     componentWillUnmount() {
         super.componentWillUnmount();
         if (this.request) {
-            this.request.abort();
+            this.request.cancel();
         }
     }
 
