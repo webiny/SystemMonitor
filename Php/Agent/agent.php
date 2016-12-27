@@ -73,7 +73,7 @@ $ch = curl_init(WBY_REPORT_TO);
 curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode(array('server' => WBY_SERVER, 'stats' => $stats)));
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Webiny-Api-Token: ' . WBY_API_TOKEN));
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Webiny-Authorization: ' . WBY_API_TOKEN));
 curl_exec($ch);
 curl_close($ch);
 
