@@ -19,7 +19,7 @@ class SettingsModal extends Webiny.Ui.ModalComponent {
                 <Ui.Settings api="/entities/system-monitor/settings" onSubmitSuccess={this.hide}>
                     {(model, container) => (
                         <wrapper>
-                            <Ui.Form.Loader container={container}/>
+                            <Ui.Form.Loader/>
                             <Ui.Modal.Header title="System Monitor Alarms"/>
                             <Ui.Modal.Body>
                                 <Ui.Alert type="info">

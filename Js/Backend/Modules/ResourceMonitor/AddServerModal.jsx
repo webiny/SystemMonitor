@@ -8,7 +8,7 @@ class AddServerModal extends Webiny.Ui.ModalComponent {
                 <Ui.Form api="/entities/system-monitor/servers" onSubmitSuccess={() => {this.props.loadServers(); this.hide();}}>
                     {(model, container) => (
                         <wrapper>
-                            <Ui.Form.Loader container={container}/>
+                            <Ui.Form.Loader/>
                             <Ui.Modal.Header title="Add server to monitor"/>
                             <Ui.Modal.Body>
                                 <Ui.Grid.Row>
