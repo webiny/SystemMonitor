@@ -172,7 +172,7 @@ ServerDashboard.defaultProps = {
         const disk = _.get(_.last(this.state.snapshots), 'stats.disks.0');
         const loadAverage = _.get(_.last(this.state.snapshots), 'stats.loadAverage');
         const agentDownload = (
-            <Ui.DownloadLink type="primary" align="right" download={`/entities/system-monitor/server/${this.props.server.id}/agent`}>
+            <Ui.DownloadLink type="primary" align="right" download={d => d('POST', `/entities/system-monitor/server/${this.props.server.id}/agent`)}>
                 <Ui.Icon icon="fa-code"/> Download agent script
             </Ui.DownloadLink>
         );

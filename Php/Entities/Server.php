@@ -34,7 +34,7 @@ class Server extends AbstractEntity
             return Snapshot::find(['server' => $this->id], ['createdOn' => -1], 1)->toArray();
         });
 
-        $this->api('GET', '{id}/agent', function () {
+        $this->api('POST', '{id}/agent', function () {
             $replacements = [
                 '{serverId}'  => $this->id,
                 '{apiToken}'  => $this->wConfig()->get('Application.Acl.Token'),
