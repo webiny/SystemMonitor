@@ -10,6 +10,8 @@ class ServerDashboard extends Webiny.Ui.View {
             snapshots: [],
             snapshotsRange: '1h'
         };
+
+        this.api = new Webiny.Api.Endpoint('/entities/system-monitor/servers');
         this.interval = null;
         this.options = {
             '1h': 'Last hour',
@@ -37,7 +39,7 @@ class ServerDashboard extends Webiny.Ui.View {
 
     loadStats(preset = '1h') {
         this.setState({loading: true});
-        this.request = new Webiny.Api.Endpoint('/entities/system-monitor/servers').get(this.props.server.id + '/snapshots/' + preset).then(apiResponse => {
+        this.request = this.api.get(this.props.server.id + '/snapshots/' + preset).then(apiResponse => {
             if (apiResponse.isError() || apiResponse.isAborted() || !this.isMounted()) {
                 return null;
             }
@@ -113,8 +115,8 @@ class ServerDashboard extends Webiny.Ui.View {
                 columns,
                 type: 'donut',
                 colors: {
-                    'Free': '#E0E0E0',
-                    'Used': '#FA5722'
+                    Free: '#E0E0E0',
+                    Used: '#FA5722'
                 }
             },
             donut: {
@@ -132,9 +134,7 @@ class ServerDashboard extends Webiny.Ui.View {
     }
 
     getMemoryConfig(snapshots) {
-        const userColumns = ['Memory used'].concat(_.map(snapshots, s => {
-            return Math.round((s.stats.memory.used / s.stats.memory.total) * 100);
-        }));
+        const userColumns = ['Memory used'].concat(_.map(snapshots, s => Math.round((s.stats.memory.used / s.stats.memory.total) * 100)));
 
         return this.getLineChartConfig(snapshots, [userColumns]);
     }
@@ -172,7 +172,8 @@ ServerDashboard.defaultProps = {
         const disk = _.get(_.last(this.state.snapshots), 'stats.disks.0');
         const loadAverage = _.get(_.last(this.state.snapshots), 'stats.loadAverage');
         const agentDownload = (
-            <Ui.DownloadLink type="primary" align="right" download={d => d('POST', `/entities/system-monitor/server/${this.props.server.id}/agent`)}>
+            <Ui.DownloadLink type="primary" align="right"
+                             download={d => d('POST', `/entities/system-monitor/server/${this.props.server.id}/agent`)}>
                 <Ui.Icon icon="fa-code"/> Download agent script
             </Ui.DownloadLink>
         );

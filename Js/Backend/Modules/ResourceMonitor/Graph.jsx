@@ -1,4 +1,5 @@
 import Webiny from 'Webiny';
+const c3 = require('c3');
 
 class Graph extends Webiny.Ui.Component {
 
