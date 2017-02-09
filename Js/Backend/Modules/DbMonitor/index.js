@@ -4,6 +4,7 @@ import Dashboard from './Dashboard';
 class ApiMonitor extends Webiny.Module {
 
     init() {
+        this.name = 'DbMonitor';
         const Menu = Webiny.Ui.Menu;
 
         this.registerMenus(

@@ -4,6 +4,7 @@ import Dashboard from './Dashboard';
 class Module extends Webiny.Module {
 
     init() {
+        this.name = 'OpCacheMonitor';
         const Menu = Webiny.Ui.Menu;
 
         this.registerMenus(

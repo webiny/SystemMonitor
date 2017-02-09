@@ -4,6 +4,7 @@ import SettingsForm from './SettingsForm';
 class Settings extends Webiny.Module {
 
     init() {
+        this.name = 'Settings';
         const Menu = Webiny.Ui.Menu;
 
         this.registerMenus(

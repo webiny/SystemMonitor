@@ -4,6 +4,7 @@ import Dashboard from './Dashboard';
 class ResourceMonitor extends Webiny.Module {
 
     init() {
+        this.name = 'ResourceMonitor';
         const Menu = Webiny.Ui.Menu;
 
         this.registerMenus(
