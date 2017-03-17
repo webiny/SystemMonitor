@@ -25,7 +25,7 @@ class SettingsModal extends Webiny.Ui.ModalComponent {
                                 <Ui.Alert type="info">
                                     Recurring alarms will only send a notification once every 15 minutes.
                                 </Ui.Alert>
-                                <Ui.Form.Fieldset title="Alarms"/>
+                                <Ui.Form.Section title="Alarms"/>
                                 <Ui.Dynamic.Fieldset name="alarms">
                                     <Ui.Dynamic.Row>
                                         {(record, actions) => {
@@ -61,7 +61,7 @@ class SettingsModal extends Webiny.Ui.ModalComponent {
                                     </Ui.Dynamic.Empty>
                                 </Ui.Dynamic.Fieldset>
 
-                                <Ui.Form.Fieldset title="Notifications"/>
+                                <Ui.Form.Section title="Notifications"/>
                                 <Ui.Grid.Row>
                                     <Ui.Checkbox label="Send message to Slack" grid={12} name="slack"/>
                                     <Ui.Logic.Hide if={!_.get(model.settings, 'slack')}>
