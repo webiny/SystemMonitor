@@ -1,6 +1,4 @@
 import Webiny from 'Webiny';
-const Ui = Webiny.Ui.Components;
-const Table = Ui.List.Table;
 
 class Dashboard extends Webiny.Ui.View {
     constructor(props) {
@@ -40,55 +38,57 @@ Dashboard.defaultProps = {
             }
         };
 
+        const {View, Grid, List, Select, Button, CodeHighlight} = this.props;
+
         return (
-            <Ui.View.List>
-                <Ui.View.Header
+            <View.List>
+                <View.Header
                     title="DB Monitor"
                     description="This dashboard shows DB query details.">
-                </Ui.View.Header>
-                <Ui.View.Body>
-                    <Ui.List {...listProps}>
-                        <Ui.List.FormFilters>
+                </View.Header>
+                <View.Body>
+                    <List {...listProps}>
+                        <List.FormFilters>
                             {(applyFilters, resetFilters) => (
-                                <Ui.Grid.Row>
-                                    <Ui.Grid.Col all={3}>
-                                        <Ui.Select {...collectionList} onChange={applyFilters()}/>
-                                    </Ui.Grid.Col>
-                                    <Ui.Grid.Col all={3}>
-                                        <Ui.Select {...operationList} onChange={applyFilters()}/>
-                                    </Ui.Grid.Col>
-                                    <Ui.Grid.Col all={2} className="pull-right">
-                                        <Ui.Button type="secondary" align="right" label="Reset Filters" onClick={resetFilters()}/>
-                                    </Ui.Grid.Col>
-                                </Ui.Grid.Row>
+                                <Grid.Row>
+                                    <Grid.Col all={3}>
+                                        <Select {...collectionList} onChange={applyFilters()}/>
+                                    </Grid.Col>
+                                    <Grid.Col all={3}>
+                                        <Select {...operationList} onChange={applyFilters()}/>
+                                    </Grid.Col>
+                                    <Grid.Col all={2} className="pull-right">
+                                        <Button type="secondary" align="right" label="Reset Filters" onClick={resetFilters()}/>
+                                    </Grid.Col>
+                                </Grid.Row>
                             )}
-                        </Ui.List.FormFilters>
+                        </List.FormFilters>
 
-                        <Table>
-                            <Table.Row>
-                                <Table.RowDetailsField/>
-                                <Table.DateTimeField name="ts" align="center" label="Executed At" sort="ts" format="YYYY-MM-DD HH:mm:ss"/>
-                                <Table.Field name="ns" align="center" label="Namespace"/>
-                                <Table.Field name="op" align="center" label="Operation"/>
-                                <Table.Field name="docsExamined" align="center" label="Docs Examined" sort="docsExamined"/>
-                                <Table.Field name="nreturned" align="center" label="Docs Returned"/>
-                                <Table.Field name="keysExamined" align="center" label="Keys Examined"/>
-                                <Table.Field name="millis" align="center" label="Execution Time" sort="millis"/>
-                            </Table.Row>
-                            <Table.RowDetails>
+                        <List.Table>
+                            <List.Table.Row>
+                                <List.Table.RowDetailsField/>
+                                <List.Table.DateTimeField name="ts" align="center" label="Executed At" sort="ts" format="YYYY-MM-DD HH:mm:ss"/>
+                                <List.Table.Field name="ns" align="center" label="Namespace"/>
+                                <List.Table.Field name="op" align="center" label="Operation"/>
+                                <List.Table.Field name="docsExamined" align="center" label="Docs Examined" sort="docsExamined"/>
+                                <List.Table.Field name="nreturned" align="center" label="Docs Returned"/>
+                                <List.Table.Field name="keysExamined" align="center" label="Keys Examined"/>
+                                <List.Table.Field name="millis" align="center" label="Execution Time" sort="millis"/>
+                            </List.Table.Row>
+                            <List.Table.RowDetails>
                                 {(data) => {
                                     return (
-                                        <Ui.CodeHighlight language="javascript">{JSON.stringify(data, null, 2)}</Ui.CodeHighlight>
+                                        <CodeHighlight language="javascript">{JSON.stringify(data, null, 2)}</CodeHighlight>
                                     );
                                 }}
-                            </Table.RowDetails>
-                        </Table>
-                        <Ui.List.Pagination/>
-                    </Ui.List>
-                </Ui.View.Body>
-            </Ui.View.List>
+                            </List.Table.RowDetails>
+                        </List.Table>
+                        <List.Pagination/>
+                    </List>
+                </View.Body>
+            </View.List>
         );
     }
 };
 
-export default Dashboard;
+export default Webiny.createComponent(Dashboard, {modules: ['View', 'Grid', 'List', 'Select', 'Button', 'CodeHighlight']});

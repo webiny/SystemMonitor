@@ -1,6 +1,4 @@
 import Webiny from 'Webiny';
-const Ui = Webiny.Ui.Components;
-import SettingsModal from './SettingsModal';
 import AddServerModal from './AddServerModal';
 import ServerDashboard from './ServerDashboard';
 
@@ -41,38 +39,37 @@ class Dashboard extends Webiny.Ui.View {
 
 Dashboard.defaultProps = {
     renderer() {
+        const {View, Button, Logic, Grid, Tabs, Loader} = this.props;
         return (
-            <Ui.View.Dashboard>
-                <Ui.View.Header
+            <View.Dashboard>
+                <View.Header
                     title="Resource Monitor"
                     description="Here you can monitor your servers. Once you setup server agents, data from your servers will be available in this dashboard.">
-                    <Ui.Button align="right" type="primary" icon="icon-plus-circled" onClick={this.ui('addServer:show')} label="Add server"/>
-                    <Ui.Button align="right" type="secondary" icon="icon-cog" onClick={this.ui('settingsModal:show')} label="Setup alarms"/>
+                    <Button align="right" type="primary" icon="icon-plus-circled" onClick={this.ui('addServer:show')} label="Add server"/>
                     <AddServerModal ui="addServer" loadServers={this.loadServers}/>
-                    <SettingsModal ui="settingsModal"/>
-                </Ui.View.Header>
-                <Ui.View.Body>
-                    <Ui.Logic.Hide if={this.state.servers.length > 0 || this.state.loading}>
-                        <Ui.Grid.Row>
-                            <Ui.Grid.Col all={12}>
-                                {this.state.loading ? <Ui.Loader/> : null}
+                </View.Header>
+                <View.Body>
+                    <Logic.Hide if={this.state.servers.length > 0 || this.state.loading}>
+                        <Grid.Row>
+                            <Grid.Col all={12}>
+                                {this.state.loading ? <Loader/> : null}
                                 <p>You have not yet created any servers to monitor. Start by clicking "Add server".</p>
-                            </Ui.Grid.Col>
-                        </Ui.Grid.Row>
-                    </Ui.Logic.Hide>
-                    <Ui.Logic.Hide if={this.state.servers.length === 0}>
-                        <Ui.Tabs size="large">
+                            </Grid.Col>
+                        </Grid.Row>
+                    </Logic.Hide>
+                    <Logic.Hide if={this.state.servers.length === 0}>
+                        <Tabs size="large">
                             {this.state.servers.map(s => (
-                                <Ui.Tabs.Tab key={s.id} label={s.name}>
+                                <Tabs.Tab key={s.id} label={s.name}>
                                     <ServerDashboard server={s}/>
-                                </Ui.Tabs.Tab>
+                                </Tabs.Tab>
                             ))}
-                        </Ui.Tabs>
-                    </Ui.Logic.Hide>
-                </Ui.View.Body>
-            </Ui.View.Dashboard>
+                        </Tabs>
+                    </Logic.Hide>
+                </View.Body>
+            </View.Dashboard>
         );
     }
 };
 
-export default Dashboard;
+export default Webiny.createComponent(Dashboard, {modules: ['View', 'Button', 'Logic', 'Grid', 'Tabs', 'Loader']});

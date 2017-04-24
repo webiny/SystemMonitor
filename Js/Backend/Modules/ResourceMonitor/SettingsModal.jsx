@@ -1,5 +1,4 @@
 import Webiny from 'Webiny';
-const Ui = Webiny.Ui.Components;
 
 class SettingsModal extends Webiny.Ui.ModalComponent {
     renderDialog() {
@@ -14,96 +13,100 @@ class SettingsModal extends Webiny.Ui.ModalComponent {
             }
         };
 
+        const {Modal, Settings, Form, Section, Alert, Dynamic, Grid, Select, Input, Button, Checkbox, Logic} = this.props;
+
         return (
-            <Ui.Modal.Dialog>
-                <Ui.Settings api="/entities/system-monitor/settings" onSubmitSuccess={this.hide}>
+            <Modal.Dialog>
+                <Settings api="/entities/system-monitor/settings" onSubmitSuccess={this.hide}>
                     {(model, container) => (
                         <wrapper>
-                            <Ui.Form.Loader/>
-                            <Ui.Modal.Header title="System Monitor Alarms"/>
-                            <Ui.Modal.Body>
-                                <Ui.Alert type="info">
+                            <Form.Loader/>
+                            <Modal.Header title="System Monitor Alarms"/>
+                            <Modal.Body>
+                                <Alert type="info">
                                     Recurring alarms will only send a notification once every 15 minutes.
-                                </Ui.Alert>
-                                <Ui.Form.Section title="Alarms"/>
-                                <Ui.Dynamic.Fieldset name="alarms">
-                                    <Ui.Dynamic.Row>
+                                </Alert>
+                                <Section title="Alarms"/>
+                                <Dynamic.Fieldset name="alarms">
+                                    <Dynamic.Row>
                                         {(record, actions) => {
                                             return (
-                                                <Ui.Grid.Row>
-                                                    <Ui.Grid.Col all={5}>
-                                                        <Ui.Select {...reasonProps} validate="required"/>
-                                                    </Ui.Grid.Col>
-                                                    <Ui.Grid.Col all={4}>
-                                                        <Ui.Input placeholder="Treshold" name="treshold" validate="required"/>
-                                                    </Ui.Grid.Col>
-                                                    <Ui.Grid.Col all={3}>
+                                                <Grid.Row>
+                                                    <Grid.Col all={5}>
+                                                        <Select {...reasonProps} validate="required"/>
+                                                    </Grid.Col>
+                                                    <Grid.Col all={4}>
+                                                        <Input placeholder="Treshold" name="treshold" validate="required"/>
+                                                    </Grid.Col>
+                                                    <Grid.Col all={3}>
                                                         <div className="btn-group">
-                                                            <Ui.Button type="primary" label="Add" onClick={actions.add(record)}/>
-                                                            <Ui.Button type="secondary" label="x" onClick={actions.remove(record)}/>
+                                                            <Button type="primary" label="Add" onClick={actions.add(record)}/>
+                                                            <Button type="secondary" label="x" onClick={actions.remove(record)}/>
                                                         </div>
-                                                    </Ui.Grid.Col>
-                                                </Ui.Grid.Row>
+                                                    </Grid.Col>
+                                                </Grid.Row>
                                             );
                                         }}
-                                    </Ui.Dynamic.Row>
-                                    <Ui.Dynamic.Empty>
+                                    </Dynamic.Row>
+                                    <Dynamic.Empty>
                                         {actions => {
                                             return (
-                                                <Ui.Grid.Row>
-                                                    <Ui.Grid.Col all={12}>
+                                                <Grid.Row>
+                                                    <Grid.Col all={12}>
                                                         <h5>You have not yet created any alarms. Start by clicking "Add alarm"!</h5>
-                                                        <Ui.Button type="primary" label="Add alarm" onClick={actions.add()}/>
-                                                    </Ui.Grid.Col>
-                                                </Ui.Grid.Row>
+                                                        <Button type="primary" label="Add alarm" onClick={actions.add()}/>
+                                                    </Grid.Col>
+                                                </Grid.Row>
                                             );
                                         }}
-                                    </Ui.Dynamic.Empty>
-                                </Ui.Dynamic.Fieldset>
+                                    </Dynamic.Empty>
+                                </Dynamic.Fieldset>
 
-                                <Ui.Form.Section title="Notifications"/>
-                                <Ui.Grid.Row>
-                                    <Ui.Checkbox label="Send message to Slack" grid={12} name="slack"/>
-                                    <Ui.Logic.Hide if={!_.get(model.settings, 'slack')}>
-                                        <Ui.Grid.Col all={10} xsOffset={1}>
-                                            <Ui.Input
+                                <Section title="Notifications"/>
+                                <Grid.Row>
+                                    <Checkbox label="Send message to Slack" grid={12} name="slack"/>
+                                    <Logic.Hide if={!_.get(model.settings, 'slack')}>
+                                        <Grid.Col all={10} xsOffset={1}>
+                                            <Input
                                                 label="Slack Token"
                                                 name="token"
                                                 validate="required"
                                                 description={<span>Bot token to use when sending notifications. <a target="_blank" href="https://api.slack.com/bot-users">Create your Slack bot here.</a></span>}/>
-                                            <Ui.Grid.Row>
-                                                <Ui.Grid.Col all={4}>
-                                                    <Ui.Input label="Team" name="team" validate="required"/>
-                                                </Ui.Grid.Col>
-                                                <Ui.Grid.Col all={4}>
-                                                    <Ui.Input label="Channel" name="channel" validate="required"/>
-                                                </Ui.Grid.Col>
-                                                <Ui.Grid.Col all={4}>
-                                                    <Ui.Input label="Username" name="username" validate="required"/>
-                                                </Ui.Grid.Col>
-                                            </Ui.Grid.Row>
-                                        </Ui.Grid.Col>
-                                    </Ui.Logic.Hide>
-                                    <Ui.Checkbox label="Send email" grid={12} name="email"/>
-                                    <Ui.Logic.Hide if={!_.get(model.settings, 'email')}>
-                                        <Ui.Grid.Row>
-                                            <Ui.Grid.Col all={10} xsOffset={1}>
-                                                <Ui.Input label="Emails" name="emails" validate="required"/>
-                                            </Ui.Grid.Col>
-                                        </Ui.Grid.Row>
-                                    </Ui.Logic.Hide>
-                                </Ui.Grid.Row>
-                            </Ui.Modal.Body>
-                            <Ui.Modal.Footer>
-                                <Ui.Button type="default" label="Close" onClick={this.hide}/>
-                                <Ui.Button type="primary" label="Save" onClick={container.submit}/>
-                            </Ui.Modal.Footer>
+                                            <Grid.Row>
+                                                <Grid.Col all={4}>
+                                                    <Input label="Team" name="team" validate="required"/>
+                                                </Grid.Col>
+                                                <Grid.Col all={4}>
+                                                    <Input label="Channel" name="channel" validate="required"/>
+                                                </Grid.Col>
+                                                <Grid.Col all={4}>
+                                                    <Input label="Username" name="username" validate="required"/>
+                                                </Grid.Col>
+                                            </Grid.Row>
+                                        </Grid.Col>
+                                    </Logic.Hide>
+                                    <Checkbox label="Send email" grid={12} name="email"/>
+                                    <Logic.Hide if={!_.get(model.settings, 'email')}>
+                                        <Grid.Row>
+                                            <Grid.Col all={10} xsOffset={1}>
+                                                <Input label="Emails" name="emails" validate="required"/>
+                                            </Grid.Col>
+                                        </Grid.Row>
+                                    </Logic.Hide>
+                                </Grid.Row>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button type="default" label="Close" onClick={this.hide}/>
+                                <Button type="primary" label="Save" onClick={container.submit}/>
+                            </Modal.Footer>
                         </wrapper>
                     )}
-                </Ui.Settings>
-            </Ui.Modal.Dialog>
+                </Settings>
+            </Modal.Dialog>
         );
     }
 }
 
-export default SettingsModal;
+export default Webiny.createComponent(SettingsModal, {
+    modules: ['Modal', 'Settings', 'Form', 'Section', 'Alert', 'Dynamic', 'Grid', 'Select', 'Input', 'Button', 'Checkbox', 'Logic']
+});

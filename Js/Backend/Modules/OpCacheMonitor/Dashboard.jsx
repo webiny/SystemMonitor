@@ -1,6 +1,4 @@
 import Webiny from 'Webiny';
-const Ui = Webiny.Ui.Components;
-const Table = Ui.List.Table;
 import Graph from './../ApiMonitor/Graph';
 
 class Dashboard extends Webiny.Ui.View {
@@ -126,46 +124,26 @@ class Dashboard extends Webiny.Ui.View {
         return this.api.post('flush-all').then(this.loadData);
     }
 
-    createChart() {
-        var chart = c3.generate({
-            data: {
-                // iris data from R
-                columns: [
-                    ['data1', 30],
-                    ['data2', 120],
-                ],
-                type: 'pie',
-                onclick: function (d, i) {
-                    console.log("onclick", d, i);
-                },
-                onmouseover: function (d, i) {
-                    console.log("onmouseover", d, i);
-                },
-                onmouseout: function (d, i) {
-                    console.log("onmouseout", d, i);
-                }
-            }
-        });
-    }
-
     renderContent() {
         if (this.state.data === null) {
             return null;
         }
 
+        const {Grid, Alert, Tabs, List} = this.props;
+
         if (this.state.data === false) {
             return (
-                <Ui.Grid.Col xs={12}>
-                    <Ui.Alert>OpCache is not configured on your system!</Ui.Alert>
-                </Ui.Grid.Col>
+                <Grid.Col xs={12}>
+                    <Alert>OpCache is not configured on your system!</Alert>
+                </Grid.Col>
             );
         }
 
         return (
-            <Ui.Tabs size="large">
-                <Ui.Tabs.Tab label="Status" icon="icon-gauge">
-                    <Ui.Grid.Row>
-                        <Ui.Grid.Col xs={6}>
+            <Tabs size="large">
+                <Tabs.Tab label="Status" icon="icon-gauge">
+                    <Grid.Row>
+                        <Grid.Col xs={6}>
                             <table className="table table-striped">
                                 <tbody>
                                 {Object.keys(this.keys).map(key => {
@@ -173,16 +151,16 @@ class Dashboard extends Webiny.Ui.View {
                                 })}
                                 </tbody>
                             </table>
-                        </Ui.Grid.Col>
-                        <Ui.Grid.Col xs={6}>
+                        </Grid.Col>
+                        <Grid.Col xs={6}>
                             <Graph config={this.state.memoryUsageChart}/>
                             <Graph config={this.state.hitsChart}/>
-                        </Ui.Grid.Col>
-                    </Ui.Grid.Row>
-                </Ui.Tabs.Tab>
-                <Ui.Tabs.Tab label="Configuration" icon="icon-cog">
-                    <Ui.Grid.Row>
-                        <Ui.Grid.Col xs={12}>
+                        </Grid.Col>
+                    </Grid.Row>
+                </Tabs.Tab>
+                <Tabs.Tab label="Configuration" icon="icon-cog">
+                    <Grid.Row>
+                        <Grid.Col xs={12}>
                             <table className="table table-striped">
                                 <tbody>
                                 {Object.keys(this.state.data.configuration.directives).map(key => {
@@ -190,70 +168,70 @@ class Dashboard extends Webiny.Ui.View {
                                 })}
                                 </tbody>
                             </table>
-                        </Ui.Grid.Col>
-                    </Ui.Grid.Row>
-                </Ui.Tabs.Tab>
-                <Ui.Tabs.Tab label="Scripts" icon="fa-file-code-o">
-                    <Ui.List data={Object.values(this.state.data.scripts)} perPage="50">
-                        <Table>
-                            <Table.Row>
-                                <Table.Field name="full_path" align="left" label="Full path"/>
-                                <Table.Field name="hits" align="center" label="Hits" sort="hits"/>
-                                <Table.FileSizeField
+                        </Grid.Col>
+                    </Grid.Row>
+                </Tabs.Tab>
+                <Tabs.Tab label="Scripts" icon="fa-file-code-o">
+                    <List data={Object.values(this.state.data.scripts)} perPage="50">
+                        <List.Table>
+                            <List.Table.Row>
+                                <List.Table.Field name="full_path" align="left" label="Full path"/>
+                                <List.Table.Field name="hits" align="center" label="Hits" sort="hits"/>
+                                <List.Table.FileSizeField
                                     name="memory_consumption"
                                     align="center"
                                     label="Memory usage"
                                     sort="memory_consumption"/>
-                                <Table.Field name="last_used_timestamp" align="center" label="Last used">
+                                <List.Table.Field name="last_used_timestamp" align="center" label="Last used">
                                     {row => (
                                         <span>{moment(row.last_used_timestamp * 1000).fromNow()}</span>
                                     )}
-                                </Table.Field>
-                                <Table.Actions>
-                                    <Table.DeleteAction
+                                </List.Table.Field>
+                                <List.Table.Actions>
+                                    <List.Table.DeleteAction
                                         label="Flush cache"
                                         message="Are you sure you want to flush cache for this script?"
                                         confirmButtonLabel="Yes, flush it!"
-                                        onConfirm={record => {
-                                                        return this.api.post('flush', {script: record.full_path}).then(this.loadData);
-                                                    }
-                                                }/>
-                                </Table.Actions>
-                            </Table.Row>
-                        </Table>
-                        <Ui.List.Pagination/>
-                    </Ui.List>
-                </Ui.Tabs.Tab>
-            </Ui.Tabs>
+                                        onConfirm={record => this.api.post('flush', {script: record.full_path}).then(this.loadData)}/>
+                                </List.Table.Actions>
+                            </List.Table.Row>
+                        </List.Table>
+                        <List.Pagination/>
+                    </List>
+                </Tabs.Tab>
+            </Tabs>
         );
     }
 }
 
 Dashboard.defaultProps = {
     renderer() {
+        const {View, ClickConfirm, Button, Logic, Loader} = this.props;
         return (
-            <Ui.View.List>
-                <Ui.View.Header
+            <View.List>
+                <View.Header
                     title="OpCache Monitor"
                     description="This dashboard shows OpCache stats and allows you to flush cache entirely or for specific script.">
-                    <Ui.Logic.Hide if={!this.state.data}>
-                        <Ui.ClickConfirm message="Are you sure you want to flush entire cache?">
-                            <Ui.Button
+                    <Logic.Hide if={!this.state.data}>
+                        <ClickConfirm message="Are you sure you want to flush entire cache?">
+                            <Button
                                 type="primary"
                                 label="Flush entire cache"
                                 icon="fa-trash-o"
                                 align="right"
                                 onClick={this.flushAllCache}/>
-                        </Ui.ClickConfirm>
-                    </Ui.Logic.Hide>
-                </Ui.View.Header>
-                <Ui.View.Body>
-                    {this.state.loading ? <Ui.Loader/> : null}
+                        </ClickConfirm>
+                    </Logic.Hide>
+                </View.Header>
+                <View.Body>
+                    {this.state.loading ? <Loader/> : null}
                     {this.renderContent()}
-                </Ui.View.Body>
-            </Ui.View.List>
+                </View.Body>
+            </View.List>
         );
     }
 };
 
-export default Dashboard;
+export default Webiny.createComponent(Dashboard, {
+    modules: ['View', 'Logic', 'ClickConfirm', 'Button', 'Grid', 'Alert', 'Tabs', 'List', 'Loader']
+});

@@ -1,5 +1,4 @@
 import Webiny from 'Webiny';
-const Ui = Webiny.Ui.Components;
 import Graph from './Graph';
 
 class ServerDashboard extends Webiny.Ui.View {
@@ -159,30 +158,33 @@ class ServerDashboard extends Webiny.Ui.View {
 
 ServerDashboard.defaultProps = {
     renderer() {
+        const {Dropdown, DownloadLink, Grid, Logic, Loader, Button, View, Icon} = this.props;
         const change = (
-            <Ui.Dropdown title={this.options[this.state.snapshotsRange]} className="balloon">
-                <Ui.Dropdown.Link title="Last hour" onClick={() => this.loadStats('1h')}/>
-                <Ui.Dropdown.Link title="Last 6 hours" onClick={() => this.loadStats('6h')}/>
-                <Ui.Dropdown.Link title="Last 24 hours" onClick={() => this.loadStats('24h')}/>
-                <Ui.Dropdown.Link title="Last 7 days" onClick={() => this.loadStats('7d')}/>
-                <Ui.Dropdown.Link title="Last 30 days" onClick={() => this.loadStats('30d')}/>
-            </Ui.Dropdown>
+            <Dropdown title={this.options[this.state.snapshotsRange]} className="balloon">
+                <Dropdown.Link title="Last hour" onClick={() => this.loadStats('1h')}/>
+                <Dropdown.Link title="Last 6 hours" onClick={() => this.loadStats('6h')}/>
+                <Dropdown.Link title="Last 24 hours" onClick={() => this.loadStats('24h')}/>
+                <Dropdown.Link title="Last 7 days" onClick={() => this.loadStats('7d')}/>
+                <Dropdown.Link title="Last 30 days" onClick={() => this.loadStats('30d')}/>
+            </Dropdown>
         );
 
         const disk = _.get(_.last(this.state.snapshots), 'stats.disks.0');
         const loadAverage = _.get(_.last(this.state.snapshots), 'stats.loadAverage');
         const agentDownload = (
-            <Ui.DownloadLink type="primary" align="right"
-                             download={d => d('POST', `/entities/system-monitor/server/${this.props.server.id}/agent`)}>
-                <Ui.Icon icon="fa-code"/> Download agent script
-            </Ui.DownloadLink>
+            <DownloadLink
+                type="primary"
+                align="right"
+                download={d => d('POST', `/entities/system-monitor/server/${this.props.server.id}/agent`)}>
+                <Icon icon="fa-code"/> Download agent script
+            </DownloadLink>
         );
 
         return (
-            <Ui.Grid.Row>
-                {this.state.loading ? <Ui.Loader/> : null}
-                <Ui.Logic.Hide if={this.state.snapshots.length > 0 || this.state.loading}>
-                    <Ui.Grid.Col all={9}>
+            <Grid.Row>
+                {this.state.loading ? <Loader/> : null}
+                <Logic.Hide if={this.state.snapshots.length > 0 || this.state.loading}>
+                    <Grid.Col all={9}>
                         <p>
                             There are no snapshots recorded for this server so far. To start monitoring your server, download an agent
                             script
@@ -190,54 +192,56 @@ ServerDashboard.defaultProps = {
                             ex:
                         </p>
                         <code>* * * * * php ~/www/monitor/webiny-agent.php</code>
-                    </Ui.Grid.Col>
-                    <Ui.Grid.Col all={3}>{agentDownload}</Ui.Grid.Col>
-                </Ui.Logic.Hide>
-                <Ui.Logic.Hide if={this.state.snapshots.length === 0}>
-                    <Ui.Grid.Col all={12}>
+                    </Grid.Col>
+                    <Grid.Col all={3}>{agentDownload}</Grid.Col>
+                </Logic.Hide>
+                <Logic.Hide if={this.state.snapshots.length === 0}>
+                    <Grid.Col all={12}>
                         {agentDownload}
-                        <Ui.Button
+                        <Button
                             align="right"
                             onClick={() => this.loadStats(this.state.snapshotsRange)}
                             type="secondary"
                             label="Refresh"
                             icon="fa-refresh"/>
-                    </Ui.Grid.Col>
-                    <Ui.Grid.Col all={6}>
-                        <Ui.View.ChartBlock title="CPU usage (%)" description={change}>
+                    </Grid.Col>
+                    <Grid.Col all={6}>
+                        <View.ChartBlock title="CPU usage (%)" description={change}>
                             <Graph config={this.getCpuConfig(this.state.snapshots)}/>
-                        </Ui.View.ChartBlock>
-                    </Ui.Grid.Col>
-                    <Ui.Grid.Col all={6}>
-                        <Ui.View.ChartBlock title="Memory usage (%)" description={change}>
+                        </View.ChartBlock>
+                    </Grid.Col>
+                    <Grid.Col all={6}>
+                        <View.ChartBlock title="Memory usage (%)" description={change}>
                             <Graph config={this.getMemoryConfig(this.state.snapshots)}/>
-                        </Ui.View.ChartBlock>
-                    </Ui.Grid.Col>
-                    <Ui.Grid.Col all={3}>
-                        <Ui.View.ChartBlock title="Disk usage (%)">
+                        </View.ChartBlock>
+                    </Grid.Col>
+                    <Grid.Col all={3}>
+                        <View.ChartBlock title="Disk usage (%)">
                             <Graph config={this.getDiskConfig(disk)}/>
-                        </Ui.View.ChartBlock>
-                    </Ui.Grid.Col>
-                    <Ui.Grid.Col all={9}>
-                        <Ui.View.ChartBlock title="System load averages">
-                            <Ui.Grid.Col all={4}>
+                        </View.ChartBlock>
+                    </Grid.Col>
+                    <Grid.Col all={9}>
+                        <View.ChartBlock title="System load averages">
+                            <Grid.Col all={4}>
                                 <h3 className="text-center">1 min</h3>
                                 <Graph config={this.getLoadAverageConfig('1 minute', _.get(loadAverage, 1))}/>
-                            </Ui.Grid.Col>
-                            <Ui.Grid.Col all={4}>
+                            </Grid.Col>
+                            <Grid.Col all={4}>
                                 <h3 className="text-center">5 min</h3>
                                 <Graph config={this.getLoadAverageConfig('5 minutes', _.get(loadAverage, 5))}/>
-                            </Ui.Grid.Col>
-                            <Ui.Grid.Col all={4}>
+                            </Grid.Col>
+                            <Grid.Col all={4}>
                                 <h3 className="text-center">15 min</h3>
                                 <Graph config={this.getLoadAverageConfig('15 minutes', _.get(loadAverage, 15))}/>
-                            </Ui.Grid.Col>
-                        </Ui.View.ChartBlock>
-                    </Ui.Grid.Col>
-                </Ui.Logic.Hide>
-            </Ui.Grid.Row>
+                            </Grid.Col>
+                        </View.ChartBlock>
+                    </Grid.Col>
+                </Logic.Hide>
+            </Grid.Row>
         );
     }
 };
 
-export default ServerDashboard;
+export default Webiny.createComponent(ServerDashboard, {
+    modules: ['Dropdown', 'DownloadLink', 'Grid', 'Logic', 'Loader', 'Button', 'View', 'Icon']
+});

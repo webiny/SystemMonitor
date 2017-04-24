@@ -1,5 +1,4 @@
 import Webiny from 'Webiny';
-const c3 = require('c3');
 
 class Graph extends Webiny.Ui.Component {
 
@@ -48,15 +47,19 @@ class Graph extends Webiny.Ui.Component {
     createGraph(props = this.props) {
         const config = props.config;
         config.bindto = '#' + this.graph.id;
-        this.graph.instance = c3.generate(config);
+        this.graph.instance = this.props.C3.generate(config);
     }
 }
 
 Graph.defaultProps = {
     config: {},
     renderer() {
-        return <div id={this.graph.id} className="line-chart"></div>;
+        return <div id={this.graph.id} className="line-chart"/>;
     }
 };
 
-export default Graph;
+export default Webiny.createComponent(Graph, {
+    modules: {
+        C3: () => import('Webiny/Vendors/C3')
+    }
+});

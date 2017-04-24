@@ -1,6 +1,4 @@
 import Webiny from 'Webiny';
-const Ui = Webiny.Ui.Components;
-const Table = Ui.List.Table;
 import Graph from './Graph';
 
 class Dashboard extends Webiny.Ui.View {
@@ -96,16 +94,6 @@ class Dashboard extends Webiny.Ui.View {
 
 Dashboard.defaultProps = {
     renderer() {
-        const change = (
-            <Ui.Dropdown title={this.options[this.state.snapshotsRange]} className="balloon">
-                <Ui.Dropdown.Link title="Last hour" onClick={() => this.loadStats('1h')}/>
-                <Ui.Dropdown.Link title="Last 6 hours" onClick={() => this.loadStats('6h')}/>
-                <Ui.Dropdown.Link title="Last 24 hours" onClick={() => this.loadStats('24h')}/>
-                <Ui.Dropdown.Link title="Last 7 days" onClick={() => this.loadStats('7d')}/>
-                <Ui.Dropdown.Link title="Last 30 days" onClick={() => this.loadStats('30d')}/>
-            </Ui.Dropdown>
-        );
-
         const listProps = {
             api: '/entities/system-monitor/api-slow-log',
             fields: '*',
@@ -118,68 +106,72 @@ Dashboard.defaultProps = {
             name: '_searchQuery'
         };
 
+        const {Dropdown, View, Grid, List, Input, Button} = this.props;
+
+        const change = (
+            <Dropdown title={this.options[this.state.snapshotsRange]} className="balloon">
+                <Dropdown.Link title="Last hour" onClick={() => this.loadStats('1h')}/>
+                <Dropdown.Link title="Last 6 hours" onClick={() => this.loadStats('6h')}/>
+                <Dropdown.Link title="Last 24 hours" onClick={() => this.loadStats('24h')}/>
+                <Dropdown.Link title="Last 7 days" onClick={() => this.loadStats('7d')}/>
+                <Dropdown.Link title="Last 30 days" onClick={() => this.loadStats('30d')}/>
+            </Dropdown>
+        );
+
         return (
             <api-monitor>
-                <Ui.View.Dashboard>
-                    <Ui.View.Header
+                <View.Dashboard>
+                    <View.Header
                         title="API Monitor"
                         description="This dashboard shows API response times and cache efficiency.">
-                    </Ui.View.Header>
-                    <Ui.View.Body>
-
-                        <Ui.Grid.Row>
-                            <Ui.Grid.Col all={6}>
-                                <Ui.View.ChartBlock title="API Requests" description={change}>
+                    </View.Header>
+                    <View.Body>
+                        <Grid.Row>
+                            <Grid.Col all={6}>
+                                <View.ChartBlock title="API Requests" description={change}>
                                     <Graph config={this.getApiRequests(this.state.snapshots)}/>
-                                </Ui.View.ChartBlock>
-                            </Ui.Grid.Col>
-
-                            <Ui.Grid.Col all={6}>
-                                <Ui.View.ChartBlock title="API Response Time" description={change}>
+                                </View.ChartBlock>
+                            </Grid.Col>
+                            <Grid.Col all={6}>
+                                <View.ChartBlock title="API Response Time" description={change}>
                                     <Graph config={this.getResponseTime(this.state.snapshots)}/>
-                                </Ui.View.ChartBlock>
-                            </Ui.Grid.Col>
-
-                        </Ui.Grid.Row>
-
-                    </Ui.View.Body>
-
-                </Ui.View.Dashboard>
-
-                <Ui.View.List>
-                    <Ui.View.Body>
+                                </View.ChartBlock>
+                            </Grid.Col>
+                        </Grid.Row>
+                    </View.Body>
+                </View.Dashboard>
+                <View.List>
+                    <View.Body>
                         <h2>API Log</h2>
-                        <Ui.List {...listProps}>
-                            <Ui.List.FormFilters>
+                        <List {...listProps}>
+                            <List.FormFilters>
                                 {(applyFilters, resetFilters) => (
-                                    <Ui.Grid.Row>
-                                        <Ui.Grid.Col all={10}>
-                                            <Ui.Input {...searchProps} onEnter={applyFilters()}/>
-                                        </Ui.Grid.Col>
-                                        <Ui.Grid.Col all={2}>
-                                            <Ui.Button type="secondary" align="right" label="Reset Filters" onClick={resetFilters()}/>
-                                        </Ui.Grid.Col>
-                                    </Ui.Grid.Row>
+                                    <Grid.Row>
+                                        <Grid.Col all={10}>
+                                            <Input {...searchProps} onEnter={applyFilters()}/>
+                                        </Grid.Col>
+                                        <Grid.Col all={2}>
+                                            <Button type="secondary" align="right" label="Reset Filters" onClick={resetFilters()}/>
+                                        </Grid.Col>
+                                    </Grid.Row>
                                 )}
-                            </Ui.List.FormFilters>
-
-                            <Table>
-                                <Table.Row>
-                                    <Table.Field name="method" align="left" label="Method" sort="method"/>
-                                    <Table.Field name="url" align="left" label="URL" sort="url"/>
-                                    <Table.Field name="referer" align="left" label="Referer" sort="referer"/>
-                                    <Table.Field name="responseTime" align="center" label="Response Time" sort="responseTime"/>
-                                </Table.Row>
-                            </Table>
-
-                            <Ui.List.Pagination/>
-                        </Ui.List>
-                    </Ui.View.Body>
-                </Ui.View.List>
+                            </List.FormFilters>
+                            <List.Table>
+                                <List.Table.Row>
+                                    <List.Table.Field name="method" align="left" label="Method" sort="method"/>
+                                    <List.Table.Field name="url" align="left" label="URL" sort="url"/>
+                                    <List.Table.Field name="referer" align="left" label="Referrer" sort="referer"/>
+                                    <List.Table.Field name="responseTime" align="center" label="Response Time" sort="responseTime"/>
+                                </List.Table.Row>
+                            </List.Table>
+                            <List.Pagination/>
+                        </List>
+                    </View.Body>
+                </View.List>
             </api-monitor>
 
         );
     }
 };
 
-export default Dashboard;
+export default Webiny.createComponent(Dashboard, {modules: ['Dropdown', 'View', 'Grid', 'List', 'Input', 'Button']});
