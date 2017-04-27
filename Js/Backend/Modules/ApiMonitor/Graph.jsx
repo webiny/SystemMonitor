@@ -59,6 +59,6 @@ Graph.defaultProps = {
 
 export default Webiny.createComponent(Graph, {
     modules: {
-        C3: () => import('Webiny/Vendors/C3')
+        C3: () => import('Core/Webiny/Vendors/C3')
     }
 });
