@@ -51,10 +51,10 @@ Dashboard.defaultProps = {
                         <List.FormFilters>
                             {(applyFilters, resetFilters) => (
                                 <Grid.Row>
-                                    <Grid.Col all={3}>
+                                    <Grid.Col all={4}>
                                         <Select {...collectionList} onChange={applyFilters()}/>
                                     </Grid.Col>
-                                    <Grid.Col all={3}>
+                                    <Grid.Col all={4}>
                                         <Select {...operationList} onChange={applyFilters()}/>
                                     </Grid.Col>
                                     <Grid.Col all={2} className="pull-right">
