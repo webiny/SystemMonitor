@@ -1,7 +1,7 @@
 <?php
 namespace Apps\SystemMonitor\Php\Entities;
 
-use Apps\Core\Php\DevTools\Entity\AbstractEntity;
+use Apps\Webiny\Php\DevTools\Entity\AbstractEntity;
 use Webiny\Component\Mongo\Index\SingleIndex;
 use Webiny\Component\Mongo\Index\TextIndex;
 

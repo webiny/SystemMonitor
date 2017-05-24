@@ -1,9 +1,9 @@
 <?php
 namespace Apps\SystemMonitor\Php\Listeners;
 
-use Apps\Core\Php\DevTools\Response\ApiCacheResponse;
-use Apps\Core\Php\DevTools\WebinyTrait;
-use Apps\Core\Php\RequestHandlers\ApiEvent;
+use Apps\Webiny\Php\DevTools\Response\ApiCacheResponse;
+use Apps\Webiny\Php\DevTools\WebinyTrait;
+use Apps\Webiny\Php\RequestHandlers\ApiEvent;
 use Apps\SystemMonitor\Php\Entities\ApiSlowLog;
 use Apps\SystemMonitor\Php\Entities\ApiSnapshot;
 use Apps\SystemMonitor\Php\Entities\Settings;
@@ -15,7 +15,7 @@ class ApiListener
     public function onBefore(ApiEvent $event)
     {
         // if instance of ApiCacheResponse, means the response will be delivered from cache
-        // without additional processing so Core.Api.After won't be called
+        // without additional processing so Webiny.Api.After won't be called
         if ($event->getResponse() instanceof ApiCacheResponse) {
             $this->logEntry(true);
         }

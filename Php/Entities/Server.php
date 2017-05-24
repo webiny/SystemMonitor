@@ -1,8 +1,8 @@
 <?php
 namespace Apps\SystemMonitor\Php\Entities;
 
-use Apps\Core\Php\DevTools\Entity\AbstractEntity;
-use Apps\Core\Php\DevTools\WebinyTrait;
+use Apps\Webiny\Php\DevTools\Entity\AbstractEntity;
+use Apps\Webiny\Php\DevTools\WebinyTrait;
 use Webiny\Component\Entity\EntityCollection;
 
 /**
@@ -14,7 +14,7 @@ use Webiny\Component\Entity\EntityCollection;
  * @property string           $heartbeat
  * @property EntityCollection $snapshots
  *
- * @package Apps\Core\Php\Entities
+ * @package Apps\Webiny\Php\Entities
  *
  */
 class Server extends AbstractEntity

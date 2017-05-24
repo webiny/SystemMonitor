@@ -1,7 +1,7 @@
 <?php
 namespace Apps\SystemMonitor\Php\Entities;
 
-use Apps\Core\Php\DevTools\Entity\AbstractEntity;
+use Apps\Webiny\Php\DevTools\Entity\AbstractEntity;
 use Webiny\Component\Mongo\Index\SingleIndex;
 
 /**
@@ -10,7 +10,7 @@ use Webiny\Component\Mongo\Index\SingleIndex;
  * @property string $id
  * @property Array  $stats
  *
- * @package Apps\Core\Php\Entities
+ * @package Apps\Webiny\Php\Entities
  *
  */
 class Snapshot extends AbstractEntity
