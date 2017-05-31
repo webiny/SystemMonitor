@@ -9,7 +9,7 @@ AuthorEmail: info@webiny.com
 
 
 Events:
-    Core:
+    Webiny:
         Api:
             Before:
                 - {Handler: \Apps\SystemMonitor\Php\Listeners\ApiListener::onBefore, Priority: 200}
