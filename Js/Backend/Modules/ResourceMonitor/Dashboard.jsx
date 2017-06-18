@@ -45,8 +45,8 @@ Dashboard.defaultProps = {
                 <View.Header
                     title="Resource Monitor"
                     description="Here you can monitor your servers. Once you setup server agents, data from your servers will be available in this dashboard.">
-                    <Button align="right" type="primary" icon="icon-plus-circled" onClick={this.ui('addServer:show')} label="Add server"/>
-                    <AddServerModal ui="addServer" loadServers={this.loadServers}/>
+                    <Button align="right" type="primary" icon="icon-plus-circled" onClick={() => this.addServer.show()} label="Add server"/>
+                    <AddServerModal ref={ref => this.addServer = ref} loadServers={this.loadServers}/>
                 </View.Header>
                 <View.Body>
                     <Logic.Hide if={this.state.servers.length > 0 || this.state.loading}>
