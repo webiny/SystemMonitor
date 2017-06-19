@@ -19,7 +19,7 @@ class SettingsModal extends Webiny.Ui.ModalComponent {
             <Modal.Dialog>
                 <Settings api="/entities/system-monitor/settings" onSubmitSuccess={this.hide}>
                     {(model, container) => (
-                        <wrapper>
+                        <Modal.Content>
                             <Form.Loader/>
                             <Modal.Header title="System Monitor Alarms"/>
                             <Modal.Body>
@@ -99,7 +99,7 @@ class SettingsModal extends Webiny.Ui.ModalComponent {
                                 <Button type="default" label="Close" onClick={this.hide}/>
                                 <Button type="primary" label="Save" onClick={container.submit}/>
                             </Modal.Footer>
-                        </wrapper>
+                        </Modal.Content>
                     )}
                 </Settings>
             </Modal.Dialog>
