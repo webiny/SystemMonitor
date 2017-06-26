@@ -1,4 +1,6 @@
 import Webiny from 'Webiny';
+import filesize from 'filesize';
+import moment from 'moment';
 import Graph from './../ApiMonitor/Graph';
 
 class Dashboard extends Webiny.Ui.View {

@@ -64,7 +64,7 @@ class SettingsModal extends Webiny.Ui.ModalComponent {
 
                                 <Section title="Notifications"/>
                                 <Grid.Row>
-                                    <Checkbox label="Send message to Slack" grid={12} name="slack"/>
+                                    <Checkbox label="Send message to Slack" name="slack"/>
                                     <Logic.Hide if={!_.get(model.settings, 'slack')}>
                                         <Grid.Col all={10} xsOffset={1}>
                                             <Input
@@ -85,7 +85,7 @@ class SettingsModal extends Webiny.Ui.ModalComponent {
                                             </Grid.Row>
                                         </Grid.Col>
                                     </Logic.Hide>
-                                    <Checkbox label="Send email" grid={12} name="email"/>
+                                    <Checkbox label="Send email" name="email"/>
                                     <Logic.Hide if={!_.get(model.settings, 'email')}>
                                         <Grid.Row>
                                             <Grid.Col all={10} xsOffset={1}>
