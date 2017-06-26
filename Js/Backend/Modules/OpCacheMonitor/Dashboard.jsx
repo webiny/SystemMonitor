@@ -225,7 +225,7 @@ Dashboard.defaultProps = {
                         </ClickConfirm>
                     </Logic.Hide>
                 </View.Header>
-                <View.Body>
+                <View.Body noPadding={true}>
                     {this.state.loading ? <Loader/> : null}
                     {this.renderContent()}
                 </View.Body>
