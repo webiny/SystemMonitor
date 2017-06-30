@@ -1,7 +1,7 @@
 import Webiny from 'Webiny';
 import Dashboard from './Dashboard';
 
-class ResourceMonitor extends Webiny.Module {
+class ResourceMonitor extends Webiny.App.Module {
 
     init() {
         this.name = 'ResourceMonitor';

@@ -1,7 +1,7 @@
 import Webiny from 'Webiny';
 import SettingsForm from './SettingsForm';
 
-class Settings extends Webiny.Module {
+class Settings extends Webiny.App.Module {
 
     init() {
         this.name = 'Settings';

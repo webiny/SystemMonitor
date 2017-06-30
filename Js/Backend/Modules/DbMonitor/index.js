@@ -1,7 +1,7 @@
 import Webiny from 'Webiny';
 import Dashboard from './Dashboard';
 
-class ApiMonitor extends Webiny.Module {
+class ApiMonitor extends Webiny.App.Module {
 
     init() {
         this.name = 'DbMonitor';
