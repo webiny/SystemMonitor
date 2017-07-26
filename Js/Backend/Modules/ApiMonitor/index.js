@@ -1,4 +1,4 @@
-import Webiny from 'Webiny';
+import Webiny from 'webiny';
 import Dashboard from './Dashboard';
 
 class ApiMonitor extends Webiny.App.Module {

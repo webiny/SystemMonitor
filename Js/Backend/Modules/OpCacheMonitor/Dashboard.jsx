@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import Webiny from 'Webiny';
+import Webiny from 'webiny';
 import filesize from 'filesize';
 import moment from 'moment';
 import Graph from './../ApiMonitor/Graph';

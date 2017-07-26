@@ -1,4 +1,4 @@
-import Webiny from 'Webiny';
+import Webiny from 'webiny';
 import SettingsForm from './SettingsForm';
 
 class Settings extends Webiny.App.Module {

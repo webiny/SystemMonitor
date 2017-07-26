@@ -1,4 +1,4 @@
-import Webiny from 'Webiny';
+import Webiny from 'webiny';
 import ApiMonitor from './Modules/ApiMonitor';
 import DbMonitor from './Modules/DbMonitor';
 import OpCacheMonitor from './Modules/OpCacheMonitor';

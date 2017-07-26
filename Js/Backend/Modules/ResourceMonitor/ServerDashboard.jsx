@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import Webiny from 'Webiny';
+import Webiny from 'webiny';
 import Graph from './Graph';
 
 class ServerDashboard extends Webiny.Ui.View {
