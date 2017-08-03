@@ -1,3 +1,4 @@
+import React from 'react';
 import Webiny from 'webiny';
 import Dashboard from './Dashboard';
 
@@ -8,11 +9,11 @@ class Module extends Webiny.App.Module {
         const Menu = Webiny.Ui.Menu;
 
         this.registerMenus(
-            new Menu('System', [
-                new Menu('System Monitor', [
-                    new Menu('OpCache Monitor', 'SystemMonitor.OpCacheMonitor.Dashboard')
-                ])
-            ], 'icon-tools').setRole('administrator')
+            <Menu label="System" icon="icon-tools">
+                <Menu label="System Monitor">
+                    <Menu label="OpCache Monitor" route="SystemMonitor.OpCacheMonitor.Dashboard"/>
+                </Menu>
+            </Menu>
         );
 
         this.registerRoutes(

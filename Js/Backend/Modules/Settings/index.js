@@ -1,3 +1,4 @@
+import React from 'react';
 import Webiny from 'webiny';
 import SettingsForm from './SettingsForm';
 
@@ -8,11 +9,11 @@ class Settings extends Webiny.App.Module {
         const Menu = Webiny.Ui.Menu;
 
         this.registerMenus(
-            new Menu('System', [
-                new Menu('System Monitor', [
-                    new Menu('Settings', 'SystemMonitor.Settings')
-                ])
-            ], 'icon-tools').setRole('administrator')
+            <Menu label="System" icon="icon-tools">
+                <Menu label="System Monitor">
+                    <Menu label="Settings" route="SystemMonitor.Settings"/>
+                </Menu>
+            </Menu>
         );
 
         this.registerRoutes(
