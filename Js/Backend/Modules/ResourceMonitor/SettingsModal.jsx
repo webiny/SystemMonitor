@@ -15,7 +15,7 @@ class SettingsModal extends Webiny.Ui.ModalComponent {
             }
         };
 
-        const {Modal, Settings, Form, Section, Alert, Dynamic, Grid, Select, Input, Button, Checkbox, Logic} = this.props;
+        const {Modal, Settings, Form, Section, Alert, Dynamic, Grid, Select, Input, Button, Checkbox, Logic, ButtonGroup} = this.props;
 
         return (
             <Modal.Dialog>
@@ -41,10 +41,10 @@ class SettingsModal extends Webiny.Ui.ModalComponent {
                                                         <Input placeholder="Treshold" name="treshold" validate="required"/>
                                                     </Grid.Col>
                                                     <Grid.Col all={3}>
-                                                        <div className="btn-group">
+                                                        <ButtonGroup>
                                                             <Button type="primary" label="Add" onClick={actions.add(record)}/>
                                                             <Button type="secondary" label="x" onClick={actions.remove(record)}/>
-                                                        </div>
+                                                        </ButtonGroup>
                                                     </Grid.Col>
                                                 </Grid.Row>
                                             );
@@ -110,5 +110,5 @@ class SettingsModal extends Webiny.Ui.ModalComponent {
 }
 
 export default Webiny.createComponent(SettingsModal, {
-    modules: ['Modal', 'Settings', 'Form', 'Section', 'Alert', 'Dynamic', 'Grid', 'Select', 'Input', 'Button', 'Checkbox', 'Logic']
+    modules: ['Modal', 'Settings', 'Form', 'Section', 'Alert', 'Dynamic', 'Grid', 'Select', 'Input', 'Button', 'Checkbox', 'Logic', 'ButtonGroup']
 });
