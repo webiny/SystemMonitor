@@ -2,7 +2,6 @@ import React from 'react';
 import _ from 'lodash';
 import Webiny from 'webiny';
 import filesize from 'filesize';
-import moment from 'moment';
 import Graph from './../ApiMonitor/Graph';
 
 class Dashboard extends Webiny.Ui.View {
@@ -78,6 +77,7 @@ class Dashboard extends Webiny.Ui.View {
     }
 
     renderRow(name, value, type = null) {
+        const {moment} = this.props;
         switch (type) {
             case 'boolean':
                 value = value === true ? 'Yes' : 'No';
@@ -142,6 +142,8 @@ class Dashboard extends Webiny.Ui.View {
                 </Grid.Col>
             );
         }
+
+        const {moment} = this.props;
 
         return (
             <Tabs size="large">
@@ -237,5 +239,5 @@ Dashboard.defaultProps = {
 };
 
 export default Webiny.createComponent(Dashboard, {
-    modules: ['View', 'Logic', 'ClickConfirm', 'Button', 'Grid', 'Alert', 'Tabs', 'List', 'Loader']
+    modules: ['View', 'Logic', 'ClickConfirm', 'Button', 'Grid', 'Alert', 'Tabs', 'List', 'Loader', {moment: 'Webiny/Vendors/Moment'}]
 });
