@@ -2,9 +2,9 @@
 
 namespace Apps\SystemMonitor\Php;
 
-use Apps\Webiny\Php\AppManager\App;
+use Apps\Webiny\Php\Lib\Apps\App;
 
-class Install extends \Apps\Webiny\Php\DevTools\LifeCycle\Install
+class Install extends \Apps\Webiny\Php\Lib\LifeCycle\Install
 {
     public function run(App $app)
     {

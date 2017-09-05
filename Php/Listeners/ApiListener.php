@@ -1,8 +1,8 @@
 <?php
 namespace Apps\SystemMonitor\Php\Listeners;
 
-use Apps\Webiny\Php\DevTools\Response\ApiCacheResponse;
-use Apps\Webiny\Php\DevTools\WebinyTrait;
+use Apps\Webiny\Php\Lib\Response\ApiCacheResponse;
+use Apps\Webiny\Php\Lib\WebinyTrait;
 use Apps\Webiny\Php\RequestHandlers\ApiEvent;
 use Apps\SystemMonitor\Php\Entities\ApiSlowLog;
 use Apps\SystemMonitor\Php\Entities\ApiSnapshot;

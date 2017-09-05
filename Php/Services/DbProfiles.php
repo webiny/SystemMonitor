@@ -1,7 +1,7 @@
 <?php
 namespace Apps\SystemMonitor\Php\Services;
 
-use Apps\Webiny\Php\DevTools\Services\AbstractService;
+use Apps\Webiny\Php\Lib\Services\AbstractService;
 use MongoDB\BSON\Regex;
 
 /**
