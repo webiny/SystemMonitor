@@ -1,7 +1,9 @@
 <?php
+
 namespace Apps\SystemMonitor\Php\Entities;
 
 use Apps\Webiny\Php\Lib\Entity\AbstractEntity;
+use Apps\Webiny\Php\Lib\Entity\Indexes\IndexContainer;
 use Webiny\Component\Mongo\Index\SingleIndex;
 use Webiny\Component\Mongo\Index\TextIndex;
 
@@ -25,11 +27,7 @@ class ApiSlowLog extends AbstractEntity
     public function __construct()
     {
         parent::__construct();
-        $this->index(new SingleIndex('createdOn', 'createdOn', null, false, false, 604800)); // delete records after 7 days
-        $this->index(new TextIndex('url', 'url'));
-        $this->index(new SingleIndex('responseTIme', 'responseTime'));
-
-        $this->attributes->removeKey(['deletedOn', 'deletedBy', 'modifiedOn', 'modifiedBy', 'createdBy']);
+        $this->attributes->remove('deletedOn', 'deletedBy', 'modifiedOn', 'modifiedBy', 'createdBy');
 
         $this->attr('method')->char()->setToArrayDefault();
         $this->attr('url')->char()->setToArrayDefault();
@@ -38,4 +36,13 @@ class ApiSlowLog extends AbstractEntity
         $this->attr('count')->integer()->setDefaultValue(0)->setToArrayDefault();
     }
 
+    protected static function entityIndexes(IndexContainer $indexes)
+    {
+        parent::entityIndexes($indexes);
+
+        // delete records after 7 days
+        $indexes->add(new SingleIndex('createdOn', 'createdOn', null, false, false, 604800));
+        $indexes->add(new TextIndex('url', 'url'));
+        $indexes->add(new SingleIndex('responseTIme', 'responseTime'));
+    }
 }

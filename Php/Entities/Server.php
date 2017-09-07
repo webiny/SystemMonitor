@@ -1,6 +1,7 @@
 <?php
 namespace Apps\SystemMonitor\Php\Entities;
 
+use Apps\Webiny\Php\Lib\Api\ApiContainer;
 use Apps\Webiny\Php\Lib\Entity\AbstractEntity;
 use Apps\Webiny\Php\Lib\WebinyTrait;
 use Webiny\Component\Entity\EntityCollection;
@@ -33,8 +34,13 @@ class Server extends AbstractEntity
         $this->attr('lastSnapshot')->dynamic(function () {
             return Snapshot::find(['server' => $this->id], ['createdOn' => -1], 1)->toArray();
         });
+    }
 
-        $this->api('POST', '{id}/agent', function () {
+    protected function entityApi(ApiContainer $api)
+    {
+        parent::entityApi($api);
+
+        $api->post('{id}/agent', function () {
             $replacements = [
                 '{serverId}'  => $this->id,
                 '{apiToken}'  => $this->wConfig()->get('Application.Acl.Token'),
@@ -55,7 +61,7 @@ class Server extends AbstractEntity
 
         });
 
-        $this->api('GET', '{id}/snapshots/{preset}', function ($preset) {
+        $api->get('{id}/snapshots/{preset}', function ($preset) {
             $intervals = [
                 '1h'  => 'PT1H',
                 '2h'  => 'PT2H',

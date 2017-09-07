@@ -1,7 +1,10 @@
 <?php
+
 namespace Apps\SystemMonitor\Php\Entities;
 
+use Apps\Webiny\Php\Lib\Api\ApiContainer;
 use Apps\Webiny\Php\Lib\Entity\AbstractEntity;
+use Apps\Webiny\Php\Lib\Entity\Indexes\IndexContainer;
 use Apps\Webiny\Php\RequestHandlers\ApiException;
 use Webiny\Component\Mongo\Index\SingleIndex;
 
@@ -16,9 +19,6 @@ use Webiny\Component\Mongo\Index\SingleIndex;
  * @property integer totalTime
  *
  * @package Apps\SystemMonitor\Php\Entities
- *
- *
- *
  */
 class ApiSnapshot extends AbstractEntity
 {
@@ -27,19 +27,21 @@ class ApiSnapshot extends AbstractEntity
     public function __construct()
     {
         parent::__construct();
-        $this->index(new SingleIndex('createdOn', 'createdOn', null, false, false, 5184000)); // delete records after 2 months
-        $this->index(new SingleIndex('timeSlot', 'timeSlot'));
 
-        $this->attributes->removeKey(['deletedOn', 'deletedBy', 'modifiedOn', 'modifiedBy', 'createdBy']);
+        $this->attributes->remove('deletedOn', 'deletedBy', 'modifiedOn', 'modifiedBy', 'createdBy');
 
         $this->attr('numRequests')->integer()->setDefaultValue(0)->setToArrayDefault();
         $this->attr('totalTime')->float()->setDefaultValue(0)->setToArrayDefault();
         $this->attr('hitCount')->integer()->setDefaultValue(0)->setToArrayDefault();
         $this->attr('missCount')->integer()->setDefaultValue(0)->setToArrayDefault();
         $this->attr('timeSlot')->integer()->setToArrayDefault();
+    }
 
+    protected function entityApi(ApiContainer $api)
+    {
+        parent::entityApi($api);
 
-        $this->api('GET', '/stats/{preset}', function ($preset) {
+        $api->get('/stats/{preset}', function ($preset) {
 
             switch ($preset) {
                 case '1h':
@@ -73,8 +75,18 @@ class ApiSnapshot extends AbstractEntity
 
             return self::find($query)->toArray();
         });
-
     }
+
+
+    protected static function entityIndexes(IndexContainer $indexes)
+    {
+        parent::entityIndexes($indexes);
+
+        // delete records after 2 months
+        $indexes->add(new SingleIndex('createdOn', 'createdOn', null, false, false, 5184000));
+        $indexes->add(new SingleIndex('timeSlot', 'timeSlot'));
+    }
+
 
     public function logRequest($responseTime, $cacheHit)
     {

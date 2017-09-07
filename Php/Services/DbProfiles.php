@@ -1,6 +1,7 @@
 <?php
 namespace Apps\SystemMonitor\Php\Services;
 
+use Apps\Webiny\Php\Lib\Api\ApiContainer;
 use Apps\Webiny\Php\Lib\Services\AbstractService;
 use MongoDB\BSON\Regex;
 
@@ -12,9 +13,9 @@ use MongoDB\BSON\Regex;
  */
 class DbProfiles extends AbstractService
 {
-    public function __construct()
+    protected function serviceApi(ApiContainer $api)
     {
-        $this->api('GET', '/', function () {
+        $api->get('/', function () {
             $perPage = $this->wRequest()->getPerPage(100);
             $page = $this->wRequest()->getPage(1);
             $filter = $this->wRequest()->getFilters();
@@ -42,7 +43,7 @@ class DbProfiles extends AbstractService
             ];
         });
 
-        $this->api('GET', 'namespaces', function () {
+        $api->get('namespaces', function () {
             return $this->wDatabase()->distinct('system.profile', 'ns', ['ns' => ['$not' => new Regex('system.', '')]]);
         });
     }

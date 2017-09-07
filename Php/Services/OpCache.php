@@ -1,6 +1,8 @@
 <?php
+
 namespace Apps\SystemMonitor\Php\Services;
 
+use Apps\Webiny\Php\Lib\Api\ApiContainer;
 use Apps\Webiny\Php\Lib\Services\AbstractService;
 
 /**
@@ -11,9 +13,9 @@ use Apps\Webiny\Php\Lib\Services\AbstractService;
  */
 class OpCache extends AbstractService
 {
-    public function __construct()
+    protected function serviceApi(ApiContainer $api)
     {
-        $this->api('GET', '/', function () {
+        $api->get('/', function () {
             if (!function_exists('opcache_get_status')) {
                 return false;
             }
@@ -26,7 +28,7 @@ class OpCache extends AbstractService
             return $status;
         })->setPublic();
 
-        $this->api('POST', '/flush-all', function () {
+        $api->post('/flush-all', function () {
             if (!function_exists('opcache_reset')) {
                 return false;
             }
@@ -34,7 +36,7 @@ class OpCache extends AbstractService
             return opcache_reset();
         })->setPublic();
 
-        $this->api('POST', '/flush', function () {
+        $api->post('/flush', function () {
             if (!function_exists('opcache_invalidate')) {
                 return false;
             }
