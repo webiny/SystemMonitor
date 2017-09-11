@@ -2,6 +2,7 @@
     {
         "name": "System Monitor Manager",
         "slug": "system-monitor-manager",
+        "isAdminRole": true,
         "description": "Manage System Monitor",
         "permissions": [
             "system-monitor-manage-all"
