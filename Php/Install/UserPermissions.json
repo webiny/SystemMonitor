@@ -6,25 +6,25 @@
         "permissions" : {
             "entities" : {
                 "Apps\\SystemMonitor\\Php\\Entities\\ApiSlowLog" : {
-                    "crudCreate" : true,
-                    "crudRead" : true,
-                    "crudUpdate" : true,
-                    "crudDelete" : true
+                    "c" : true,
+                    "r" : true,
+                    "u" : true,
+                    "d" : true
                 },
                 "Apps\\SystemMonitor\\Php\\Entities\\ApiSnapshot" : {
-                    "crudCreate" : true,
-                    "crudRead" : true,
-                    "crudUpdate" : true,
-                    "crudDelete" : true,
+                    "c" : true,
+                    "r" : true,
+                    "u" : true,
+                    "d" : true,
                     "stats/{preset}" : {
                         "get" : true
                     }
                 },
                 "Apps\\SystemMonitor\\Php\\Entities\\Server" : {
-                    "crudCreate" : true,
-                    "crudRead" : true,
-                    "crudUpdate" : true,
-                    "crudDelete" : true,
+                    "c" : true,
+                    "r" : true,
+                    "u" : true,
+                    "d" : true,
                     "{id}/agent" : {
                         "get" : true
                     },
@@ -33,10 +33,10 @@
                     }
                 },
                 "Apps\\SystemMonitor\\Php\\Entities\\Snapshot" : {
-                    "crudCreate" : true,
-                    "crudRead" : true,
-                    "crudUpdate" : true,
-                    "crudDelete" : true
+                    "c" : true,
+                    "r" : true,
+                    "u" : true,
+                    "d" : true
                 },
                 "Apps\\SystemMonitor\\Php\\Entities\\Settings" : {
                     "/" : {
