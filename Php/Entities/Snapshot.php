@@ -13,7 +13,7 @@ use Webiny\Component\Mongo\Index\SingleIndex;
  * @property string $id
  * @property array  $stats
  *
- * @package Apps\Webiny\Php\Entities
+ * @package Apps\SystemMonitor\Php\Entities
  *
  */
 class Snapshot extends AbstractEntity
@@ -24,7 +24,7 @@ class Snapshot extends AbstractEntity
     {
         parent::__construct();
         $this->attributes->remove('deletedOn', 'deletedBy', 'modifiedOn', 'modifiedBy');
-        $this->attr('server')->many2one()->setEntity('Apps\SystemMonitor\Php\Entities\Server');
+        $this->attr('server')->many2one()->setEntity(Server::class);
         $this->attr('time')->object()->onGet(function ($value) {
             if (is_string($this->createdOn) && $this->createdOn !== 'now') {
                 $time = $this->datetime($this->createdOn);

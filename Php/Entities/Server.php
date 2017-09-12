@@ -30,7 +30,7 @@ class Server extends AbstractEntity
         $this->attr('name')->char();
         $this->attr('type')->char();
         $this->attr('heartbeat')->char()->setValidators('url');
-        $this->attr('snapshots')->one2many('server')->setEntity('Apps\SystemMonitor\Php\Entities\Snapshot');
+        $this->attr('snapshots')->one2many('server')->setEntity(Snapshot::class);
         $this->attr('lastSnapshot')->dynamic(function () {
             return Snapshot::find(['server' => $this->id], ['createdOn' => -1], 1)->toArray();
         });
