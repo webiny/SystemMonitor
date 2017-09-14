@@ -1,27 +1,23 @@
 <?php
+
 namespace Apps\SystemMonitor\Php\Entities;
 
 use Apps\Webiny\Php\Lib\Api\ApiContainer;
 use Apps\Webiny\Php\Lib\Entity\AbstractEntity;
-use Apps\Webiny\Php\Lib\WebinyTrait;
 use Webiny\Component\Entity\EntityCollection;
 
 /**
- * Class SystemSnapshot
+ * Class Server
  *
  * @property string           $id
  * @property string           $name
  * @property string           $type
  * @property string           $heartbeat
  * @property EntityCollection $snapshots
- *
- * @package Apps\Webiny\Php\Entities
- *
  */
 class Server extends AbstractEntity
 {
-    use WebinyTrait;
-
+    protected static $classId = 'SystemMonitor.Entities.Server';
     protected static $entityCollection = 'SystemMonitorServers';
 
     public function __construct()

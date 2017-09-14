@@ -1,4 +1,5 @@
 <?php
+
 namespace Apps\SystemMonitor\Php\Services;
 
 use Apps\Webiny\Php\Lib\Api\ApiContainer;
@@ -7,12 +8,11 @@ use MongoDB\BSON\Regex;
 
 /**
  * Class DbProfiles
- *
- * @package Apps\SystemMonitor\Php\Services
- *
  */
 class DbProfiles extends AbstractService
 {
+    protected static $classId = 'SystemMonitor.Services.DbProfiles';
+
     protected function serviceApi(ApiContainer $api)
     {
         $api->get('/', function () {

@@ -1,13 +1,13 @@
 <?php
+
 namespace Apps\SystemMonitor\Php\Entities;
 
 /**
  * Class Settings
- *
- * @package Apps\Webiny\Php\Entities
  */
 class Settings extends \Apps\Webiny\Php\Entities\Settings
 {
+    protected static $classId = 'SystemMonitor.Entities.Settings';
     protected static $key = 'system-monitor';
 
     public function save()

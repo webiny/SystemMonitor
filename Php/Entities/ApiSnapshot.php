@@ -9,7 +9,7 @@ use Apps\Webiny\Php\RequestHandlers\ApiException;
 use Webiny\Component\Mongo\Index\SingleIndex;
 
 /**
- * Class SystemSnapshot
+ * Class ApiSnapshot
  *
  * @property string  $id
  * @property integer numRequests
@@ -17,11 +17,10 @@ use Webiny\Component\Mongo\Index\SingleIndex;
  * @property integer missCount
  * @property integer timeSlot
  * @property integer totalTime
- *
- * @package Apps\SystemMonitor\Php\Entities
  */
 class ApiSnapshot extends AbstractEntity
 {
+    protected static $classId = 'SystemMonitor.Entities.ApiSnapshot';
     protected static $entityCollection = 'SystemMonitorApiSnapshots';
 
     public function __construct()

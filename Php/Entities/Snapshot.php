@@ -8,16 +8,14 @@ use Apps\Webiny\Php\Lib\Entity\Indexes\IndexContainer;
 use Webiny\Component\Mongo\Index\SingleIndex;
 
 /**
- * Class SystemSnapshot
+ * Class Snapshot
  *
  * @property string $id
  * @property array  $stats
- *
- * @package Apps\SystemMonitor\Php\Entities
- *
  */
 class Snapshot extends AbstractEntity
 {
+    protected static $classId = 'SystemMonitor.Entities.Snapshot';
     protected static $entityCollection = 'SystemMonitorSnapshots';
 
     public function __construct()

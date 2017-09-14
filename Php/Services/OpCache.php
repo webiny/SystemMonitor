@@ -7,12 +7,11 @@ use Apps\Webiny\Php\Lib\Services\AbstractService;
 
 /**
  * Class OpCache
- *
- * @package Apps\SystemMonitor\Php\Services
- *
  */
 class OpCache extends AbstractService
 {
+    protected static $classId = 'SystemMonitor.Services.OpCache';
+
     protected function serviceApi(ApiContainer $api)
     {
         $api->get('/', function () {

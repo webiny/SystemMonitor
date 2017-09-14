@@ -8,7 +8,7 @@ use Webiny\Component\Mongo\Index\SingleIndex;
 use Webiny\Component\Mongo\Index\TextIndex;
 
 /**
- * Class SystemSnapshot
+ * Class ApiSlowLog
  *
  * @property string  $id
  * @property string  method
@@ -16,12 +16,10 @@ use Webiny\Component\Mongo\Index\TextIndex;
  * @property string  referer
  * @property float   responseTime
  * @property integer count
- *
- * @package Apps\SystemMonitor\Php\Entities
- *
  */
 class ApiSlowLog extends AbstractEntity
 {
+    protected static $classId = 'SystemMonitor.Entities.ApiSlowLog';
     protected static $entityCollection = 'SystemMonitorApiSlowLog';
 
     public function __construct()
