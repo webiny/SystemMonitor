@@ -20,7 +20,7 @@ use Webiny\Component\Mongo\Index\TextIndex;
 class ApiSlowLog extends AbstractEntity
 {
     protected static $classId = 'SystemMonitor.Entities.ApiSlowLog';
-    protected static $entityCollection = 'SystemMonitorApiSlowLog';
+    protected static $collection = 'SystemMonitorApiSlowLog';
 
     public function __construct()
     {

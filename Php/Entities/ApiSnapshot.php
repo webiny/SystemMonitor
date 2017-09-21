@@ -21,7 +21,7 @@ use Webiny\Component\Mongo\Index\SingleIndex;
 class ApiSnapshot extends AbstractEntity
 {
     protected static $classId = 'SystemMonitor.Entities.ApiSnapshot';
-    protected static $entityCollection = 'SystemMonitorApiSnapshots';
+    protected static $collection = 'SystemMonitorApiSnapshots';
 
     public function __construct()
     {

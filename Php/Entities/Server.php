@@ -18,7 +18,7 @@ use Webiny\Component\Entity\EntityCollection;
 class Server extends AbstractEntity
 {
     protected static $classId = 'SystemMonitor.Entities.Server';
-    protected static $entityCollection = 'SystemMonitorServers';
+    protected static $collection = 'SystemMonitorServers';
 
     public function __construct()
     {
