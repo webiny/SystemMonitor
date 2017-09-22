@@ -1,12 +1,11 @@
 Name: SystemMonitor
 Version: 0.1.0
-Link: http://www.webiny.com/store/webiny/system-monitor/
-Description:
-
-AuthorName: Webiny LTD
-AuthorLink: http://www.webiny.com
-AuthorEmail: info@webiny.com
-
+Link: https://github.com/Webiny/SystemMonitor
+Description: Monitor your server resources like CPU, disk usage and average load and easily analyze data using user friendly interface
+Author:
+    Name: Webiny LTD
+    Email: info@webiny.com
+    Link: https://www.webiny.com
 
 Events:
     Webiny:

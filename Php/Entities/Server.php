@@ -39,9 +39,9 @@ class Server extends AbstractEntity
         $api->post('{id}/agent', function () {
             $replacements = [
                 '{serverId}'  => $this->id,
-                '{apiToken}'  => $this->wConfig()->get('Application.Acl.Token'),
+                '{apiToken}'  => $this->wConfig()->get('Webiny.Acl.Token'),
                 '{heartbeat}' => $this->type == 'web' ? $this->heartbeat : '',
-                '{reportTo}'  => $this->wConfig()->get('Application.ApiPath') . '/entities/system-monitor/snapshots'
+                '{reportTo}'  => $this->wConfig()->get('Webiny.ApiUrl') . '/entities/system-monitor/snapshots'
             ];
             $file = $this->str(file_get_contents(__DIR__ . '/../Agent/agent.php'));
             $file = $file->replace(array_keys($replacements), array_values($replacements))->val();
