@@ -20,7 +20,7 @@ class SettingsModal extends Webiny.Ui.ModalComponent {
         return (
             <Modal.Dialog>
                 <Settings api="/entities/system-monitor/settings" onSubmitSuccess={this.hide}>
-                    {(model, container) => (
+                    {({model, form}) => (
                         <Modal.Content>
                             <Form.Loader/>
                             <Modal.Header title="System Monitor Alarms"/>
@@ -31,7 +31,7 @@ class SettingsModal extends Webiny.Ui.ModalComponent {
                                 <Section title="Alarms"/>
                                 <Dynamic.Fieldset name="alarms">
                                     <Dynamic.Row>
-                                        {(record, actions) => {
+                                        {({data, actions}) => {
                                             return (
                                                 <Grid.Row>
                                                     <Grid.Col all={5}>
@@ -42,8 +42,8 @@ class SettingsModal extends Webiny.Ui.ModalComponent {
                                                     </Grid.Col>
                                                     <Grid.Col all={3}>
                                                         <ButtonGroup>
-                                                            <Button type="primary" label="Add" onClick={actions.add(record)}/>
-                                                            <Button type="secondary" label="x" onClick={actions.remove(record)}/>
+                                                            <Button type="primary" label="Add" onClick={actions.add(data)}/>
+                                                            <Button type="secondary" label="x" onClick={actions.remove(data)}/>
                                                         </ButtonGroup>
                                                     </Grid.Col>
                                                 </Grid.Row>
@@ -51,7 +51,7 @@ class SettingsModal extends Webiny.Ui.ModalComponent {
                                         }}
                                     </Dynamic.Row>
                                     <Dynamic.Empty>
-                                        {actions => {
+                                        {({actions}) => {
                                             return (
                                                 <Grid.Row>
                                                     <Grid.Col all={12}>
@@ -73,7 +73,8 @@ class SettingsModal extends Webiny.Ui.ModalComponent {
                                                 label="Slack Token"
                                                 name="token"
                                                 validate="required"
-                                                description={<span>Bot token to use when sending notifications. <a target="_blank" href="https://api.slack.com/bot-users">Create your Slack bot here.</a></span>}/>
+                                                description={<span>Bot token to use when sending notifications. <a target="_blank"
+                                                                                                                   href="https://api.slack.com/bot-users">Create your Slack bot here.</a></span>}/>
                                             <Grid.Row>
                                                 <Grid.Col all={4}>
                                                     <Input label="Team" name="team" validate="required"/>
@@ -99,7 +100,7 @@ class SettingsModal extends Webiny.Ui.ModalComponent {
                             </Modal.Body>
                             <Modal.Footer>
                                 <Button type="default" label="Close" onClick={this.hide}/>
-                                <Button type="primary" label="Save" onClick={container.submit}/>
+                                <Button type="primary" label="Save" onClick={form.submit}/>
                             </Modal.Footer>
                         </Modal.Content>
                     )}

@@ -11,7 +11,7 @@ SettingsForm.defaultProps = {
         const {Settings, View, Tabs, Grid, Switch, Input, Button} = this.props;
         return (
             <Settings api="/entities/system-monitor/settings">
-                {(model, form) => (
+                {({model, form}) => (
                     <View.Form>
                         <View.Header
                             title="System Monitor Settings"

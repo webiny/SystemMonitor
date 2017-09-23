@@ -147,13 +147,13 @@ Dashboard.defaultProps = {
                         <h2>API Log</h2>
                         <List {...listProps}>
                             <List.FormFilters>
-                                {(applyFilters, resetFilters) => (
+                                {({apply, reset}) => (
                                     <Grid.Row>
                                         <Grid.Col all={10}>
-                                            <Input {...searchProps} onEnter={applyFilters()}/>
+                                            <Input {...searchProps} onEnter={apply()}/>
                                         </Grid.Col>
                                         <Grid.Col all={2}>
-                                            <Button type="secondary" align="right" label="Reset Filters" onClick={resetFilters()}/>
+                                            <Button type="secondary" align="right" label="Reset Filters" onClick={reset()}/>
                                         </Grid.Col>
                                     </Grid.Row>
                                 )}

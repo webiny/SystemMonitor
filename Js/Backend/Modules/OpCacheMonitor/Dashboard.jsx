@@ -189,8 +189,8 @@ class Dashboard extends Webiny.Ui.View {
                                     label="Memory usage"
                                     sort="memory_consumption"/>
                                 <List.Table.Field name="last_used_timestamp" align="center" label="Last used">
-                                    {row => (
-                                        <span>{moment(row.last_used_timestamp * 1000).fromNow()}</span>
+                                    {({data}) => (
+                                        <span>{moment(data.last_used_timestamp * 1000).fromNow()}</span>
                                     )}
                                 </List.Table.Field>
                                 <List.Table.Actions>
@@ -198,7 +198,7 @@ class Dashboard extends Webiny.Ui.View {
                                         label="Flush cache"
                                         message="Are you sure you want to flush cache for this script?"
                                         confirmButtonLabel="Yes, flush it!"
-                                        onConfirm={record => this.api.post('flush', {script: record.full_path}).then(this.loadData)}/>
+                                        onConfirm={({data}) => this.api.post('flush', {script: data.full_path}).then(this.loadData)}/>
                                 </List.Table.Actions>
                             </List.Table.Row>
                         </List.Table>

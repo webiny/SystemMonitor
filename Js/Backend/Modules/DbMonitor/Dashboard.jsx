@@ -50,16 +50,16 @@ Dashboard.defaultProps = {
                 <View.Body>
                     <List {...listProps}>
                         <List.FormFilters>
-                            {(applyFilters, resetFilters) => (
+                            {({apply, reset}) => (
                                 <Grid.Row>
                                     <Grid.Col all={4}>
-                                        <Select {...collectionList} onChange={applyFilters()}/>
+                                        <Select {...collectionList} onChange={apply()}/>
                                     </Grid.Col>
                                     <Grid.Col all={4}>
-                                        <Select {...operationList} onChange={applyFilters()}/>
+                                        <Select {...operationList} onChange={apply()}/>
                                     </Grid.Col>
                                     <Grid.Col all={2} className="pull-right">
-                                        <Button type="secondary" align="right" label="Reset Filters" onClick={resetFilters()}/>
+                                        <Button type="secondary" align="right" label="Reset Filters" onClick={reset()}/>
                                     </Grid.Col>
                                 </Grid.Row>
                             )}
@@ -68,7 +68,8 @@ Dashboard.defaultProps = {
                         <List.Table>
                             <List.Table.Row>
                                 <List.Table.RowDetailsField/>
-                                <List.Table.DateTimeField name="ts" align="center" label="Executed At" sort="ts" format="YYYY-MM-DD HH:mm:ss"/>
+                                <List.Table.DateTimeField name="ts" align="center" label="Executed At" sort="ts"
+                                                          format="YYYY-MM-DD HH:mm:ss"/>
                                 <List.Table.Field name="ns" align="center" label="Namespace"/>
                                 <List.Table.Field name="op" align="center" label="Operation"/>
                                 <List.Table.Field name="docsExamined" align="center" label="Docs Examined" sort="docsExamined"/>
@@ -77,11 +78,9 @@ Dashboard.defaultProps = {
                                 <List.Table.Field name="millis" align="center" label="Execution Time" sort="millis"/>
                             </List.Table.Row>
                             <List.Table.RowDetails>
-                                {(data) => {
-                                    return (
-                                        <CodeHighlight language="javascript">{JSON.stringify(data, null, 2)}</CodeHighlight>
-                                    );
-                                }}
+                                {({data}) => (
+                                    <CodeHighlight language="javascript">{JSON.stringify(data, null, 2)}</CodeHighlight>
+                                )}
                             </List.Table.RowDetails>
                         </List.Table>
                         <List.Pagination/>
