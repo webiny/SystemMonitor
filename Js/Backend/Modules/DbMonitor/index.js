@@ -12,9 +12,9 @@ class ApiMonitor extends Webiny.App.Module {
         const Menu = Webiny.Ui.Menu;
 
         this.registerMenus(
-            <Menu label={this.i18n('System')} icon="icon-tools">
-                <Menu label={this.i18n('System Monitor')}>
-                    <Menu label={this.i18n('DB Monitor')} route="SystemMonitor.DbMonitor.Dashboard"/>
+            <Menu label={Webiny.I18n('System')} icon="icon-tools">
+                <Menu label={Webiny.I18n('System Monitor')}>
+                    <Menu label={Webiny.I18n('DB Monitor')} route="SystemMonitor.DbMonitor.Dashboard"/>
                 </Menu>
             </Menu>
         );
