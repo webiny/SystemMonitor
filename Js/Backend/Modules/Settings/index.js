@@ -2,6 +2,9 @@ import React from 'react';
 import Webiny from 'webiny';
 import SettingsForm from './SettingsForm';
 
+/**
+ * @i18n.namespace SystemMonitor.Backend.Settings
+ */
 class Settings extends Webiny.App.Module {
 
     init() {
@@ -9,9 +12,9 @@ class Settings extends Webiny.App.Module {
         const Menu = Webiny.Ui.Menu;
 
         this.registerMenus(
-            <Menu label="System" icon="icon-tools">
-                <Menu label="System Monitor">
-                    <Menu label="Settings" route="SystemMonitor.Settings"/>
+            <Menu label={this.i18n('System')} icon="icon-tools">
+                <Menu label={this.i18n('System Monitor')}>
+                    <Menu label={this.i18n('Settings')} route="SystemMonitor.Settings"/>
                 </Menu>
             </Menu>
         );

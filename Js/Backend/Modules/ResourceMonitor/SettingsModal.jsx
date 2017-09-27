@@ -2,6 +2,9 @@ import React from 'react';
 import _ from 'lodash';
 import Webiny from 'webiny';
 
+/**
+ * @i18n.namespace SystemMonitor.Backend.ResourceMonitor.SettingsModal
+ */
 class SettingsModal extends Webiny.Ui.ModalComponent {
     renderDialog() {
         const reasonProps = {
@@ -23,12 +26,12 @@ class SettingsModal extends Webiny.Ui.ModalComponent {
                     {({model, form}) => (
                         <Modal.Content>
                             <Form.Loader/>
-                            <Modal.Header title="System Monitor Alarms"/>
+                            <Modal.Header title={this.i18n('System Monitor Alarms')}/>
                             <Modal.Body>
                                 <Alert type="info">
                                     Recurring alarms will only send a notification once every 15 minutes.
                                 </Alert>
-                                <Section title="Alarms"/>
+                                <Section title={this.i18n('Alarms')}/>
                                 <Dynamic.Fieldset name="alarms">
                                     <Dynamic.Row>
                                         {({data, actions}) => {
@@ -38,12 +41,12 @@ class SettingsModal extends Webiny.Ui.ModalComponent {
                                                         <Select {...reasonProps} validate="required"/>
                                                     </Grid.Col>
                                                     <Grid.Col all={4}>
-                                                        <Input placeholder="Treshold" name="treshold" validate="required"/>
+                                                        <Input placeholder={this.i18n('Treshold')} name="treshold" validate="required"/>
                                                     </Grid.Col>
                                                     <Grid.Col all={3}>
                                                         <ButtonGroup>
-                                                            <Button type="primary" label="Add" onClick={actions.add(data)}/>
-                                                            <Button type="secondary" label="x" onClick={actions.remove(data)}/>
+                                                            <Button type="primary" label={this.i18n('Add')} onClick={actions.add(data)}/>
+                                                            <Button type="secondary" label={this.i18n('x')} onClick={actions.remove(data)}/>
                                                         </ButtonGroup>
                                                     </Grid.Col>
                                                 </Grid.Row>
@@ -56,7 +59,7 @@ class SettingsModal extends Webiny.Ui.ModalComponent {
                                                 <Grid.Row>
                                                     <Grid.Col all={12}>
                                                         <h5>You have not yet created any alarms. Start by clicking "Add alarm"!</h5>
-                                                        <Button type="primary" label="Add alarm" onClick={actions.add()}/>
+                                                        <Button type="primary" label={this.i18n('Add alarm')} onClick={actions.add()}/>
                                                     </Grid.Col>
                                                 </Grid.Row>
                                             );
@@ -64,43 +67,43 @@ class SettingsModal extends Webiny.Ui.ModalComponent {
                                     </Dynamic.Empty>
                                 </Dynamic.Fieldset>
 
-                                <Section title="Notifications"/>
+                                <Section title={this.i18n('Notifications')}/>
                                 <Grid.Row>
-                                    <Checkbox label="Send message to Slack" name="slack"/>
+                                    <Checkbox label={this.i18n('Send message to Slack')} name="slack"/>
                                     <Logic.Hide if={!_.get(model.settings, 'slack')}>
                                         <Grid.Col all={10} xsOffset={1}>
                                             <Input
-                                                label="Slack Token"
+                                                label={this.i18n('Slack Token')}
                                                 name="token"
                                                 validate="required"
                                                 description={<span>Bot token to use when sending notifications. <a target="_blank"
                                                                                                                    href="https://api.slack.com/bot-users">Create your Slack bot here.</a></span>}/>
                                             <Grid.Row>
                                                 <Grid.Col all={4}>
-                                                    <Input label="Team" name="team" validate="required"/>
+                                                    <Input label={this.i18n('Team')} name="team" validate="required"/>
                                                 </Grid.Col>
                                                 <Grid.Col all={4}>
-                                                    <Input label="Channel" name="channel" validate="required"/>
+                                                    <Input label={this.i18n('Channel')} name="channel" validate="required"/>
                                                 </Grid.Col>
                                                 <Grid.Col all={4}>
-                                                    <Input label="Username" name="username" validate="required"/>
+                                                    <Input label={this.i18n('Username')} name="username" validate="required"/>
                                                 </Grid.Col>
                                             </Grid.Row>
                                         </Grid.Col>
                                     </Logic.Hide>
-                                    <Checkbox label="Send email" name="email"/>
+                                    <Checkbox label={this.i18n('Send email')} name="email"/>
                                     <Logic.Hide if={!_.get(model.settings, 'email')}>
                                         <Grid.Row>
                                             <Grid.Col all={10} xsOffset={1}>
-                                                <Input label="Emails" name="emails" validate="required"/>
+                                                <Input label={this.i18n('Emails')} name="emails" validate="required"/>
                                             </Grid.Col>
                                         </Grid.Row>
                                     </Logic.Hide>
                                 </Grid.Row>
                             </Modal.Body>
                             <Modal.Footer>
-                                <Button type="default" label="Close" onClick={this.hide}/>
-                                <Button type="primary" label="Save" onClick={form.submit}/>
+                                <Button type="default" label={this.i18n('Close')} onClick={this.hide}/>
+                                <Button type="primary" label={this.i18n('Save')} onClick={form.submit}/>
                             </Modal.Footer>
                         </Modal.Content>
                     )}

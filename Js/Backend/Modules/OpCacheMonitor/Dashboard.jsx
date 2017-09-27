@@ -4,6 +4,9 @@ import Webiny from 'webiny';
 import filesize from 'filesize';
 import Graph from './../ApiMonitor/Graph';
 
+/**
+ * @i18n.namespace SystemMonitor.Backend.OpCacheMonitor.Dashboard
+ */
 class Dashboard extends Webiny.Ui.View {
     constructor(props) {
         super(props);
@@ -145,7 +148,7 @@ class Dashboard extends Webiny.Ui.View {
 
         return (
             <Tabs size="large">
-                <Tabs.Tab label="Status" icon="icon-gauge">
+                <Tabs.Tab label={this.i18n('Status')} icon="icon-gauge">
                     <Grid.Row>
                         <Grid.Col xs={6}>
                             <table className="table table-striped">
@@ -162,7 +165,7 @@ class Dashboard extends Webiny.Ui.View {
                         </Grid.Col>
                     </Grid.Row>
                 </Tabs.Tab>
-                <Tabs.Tab label="Configuration" icon="icon-cog">
+                <Tabs.Tab label={this.i18n('Configuration')} icon="icon-cog">
                     <Grid.Row>
                         <Grid.Col xs={12}>
                             <table className="table table-striped">
@@ -175,27 +178,27 @@ class Dashboard extends Webiny.Ui.View {
                         </Grid.Col>
                     </Grid.Row>
                 </Tabs.Tab>
-                <Tabs.Tab label="Scripts" icon="fa-file-code-o">
+                <Tabs.Tab label={this.i18n('Scripts')} icon="fa-file-code-o">
                     <List data={Object.values(this.state.data.scripts)} perPage="50">
                         <List.Table>
                             <List.Table.Row>
-                                <List.Table.Field name="full_path" align="left" label="Full path"/>
-                                <List.Table.Field name="hits" align="center" label="Hits" sort="hits"/>
+                                <List.Table.Field name="full_path" align="left" label={this.i18n('Full path')}/>
+                                <List.Table.Field name="hits" align="center" label={this.i18n('Hits')} sort="hits"/>
                                 <List.Table.FileSizeField
                                     name="memory_consumption"
                                     align="center"
-                                    label="Memory usage"
+                                    label={this.i18n('Memory usage')}
                                     sort="memory_consumption"/>
-                                <List.Table.Field name="last_used_timestamp" align="center" label="Last used">
+                                <List.Table.Field name="last_used_timestamp" align="center" label={this.i18n('Last used')}>
                                     {({data}) => (
                                         <span>{moment(data.last_used_timestamp * 1000).fromNow()}</span>
                                     )}
                                 </List.Table.Field>
                                 <List.Table.Actions>
                                     <List.Table.DeleteAction
-                                        label="Flush cache"
-                                        message="Are you sure you want to flush cache for this script?"
-                                        confirmButtonLabel="Yes, flush it!"
+                                        label={this.i18n('Flush cache')}
+                                        message={this.i18n('Are you sure you want to flush cache for this script?')}
+                                        confirmButtonlabel={this.i18n('Yes, flush it!')}
                                         onConfirm={({data}) => this.api.post('flush', {script: data.full_path}).then(this.loadData)}/>
                                 </List.Table.Actions>
                             </List.Table.Row>
@@ -214,13 +217,13 @@ Dashboard.defaultProps = {
         return (
             <View.List>
                 <View.Header
-                    title="OpCache Monitor"
+                    title={this.i18n('OpCache Monitor')}
                     description="This dashboard shows OpCache stats and allows you to flush cache entirely or for specific script.">
                     <Logic.Hide if={!this.state.data}>
-                        <ClickConfirm message="Are you sure you want to flush entire cache?">
+                        <ClickConfirm message={this.i18n('Are you sure you want to flush entire cache?')}>
                             <Button
                                 type="primary"
-                                label="Flush entire cache"
+                                label={this.i18n('Flush entire cache')}
                                 icon="fa-trash-o"
                                 align="right"
                                 onClick={this.flushAllCache}/>

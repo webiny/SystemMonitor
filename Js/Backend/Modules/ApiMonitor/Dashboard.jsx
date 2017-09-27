@@ -3,6 +3,9 @@ import _ from 'lodash';
 import Webiny from 'webiny';
 import Graph from './Graph';
 
+/**
+ * @i18n.namespace SystemMonitor.Backend.ApiMonitor.Dashboard
+ */
 class Dashboard extends Webiny.Ui.View {
     constructor(props) {
         super(props);
@@ -112,11 +115,11 @@ Dashboard.defaultProps = {
 
         const change = (
             <Dropdown title={this.options[this.state.snapshotsRange]} className="balloon">
-                <Dropdown.Link title="Last hour" onClick={() => this.loadStats('1h')}/>
-                <Dropdown.Link title="Last 6 hours" onClick={() => this.loadStats('6h')}/>
-                <Dropdown.Link title="Last 24 hours" onClick={() => this.loadStats('24h')}/>
-                <Dropdown.Link title="Last 7 days" onClick={() => this.loadStats('7d')}/>
-                <Dropdown.Link title="Last 30 days" onClick={() => this.loadStats('30d')}/>
+                <Dropdown.Link title={this.i18n('Last hour')} onClick={() => this.loadStats('1h')}/>
+                <Dropdown.Link title={this.i18n('Last 6 hours')} onClick={() => this.loadStats('6h')}/>
+                <Dropdown.Link title={this.i18n('Last 24 hours')} onClick={() => this.loadStats('24h')}/>
+                <Dropdown.Link title={this.i18n('Last 7 days')} onClick={() => this.loadStats('7d')}/>
+                <Dropdown.Link title={this.i18n('Last 30 days')} onClick={() => this.loadStats('30d')}/>
             </Dropdown>
         );
 
@@ -124,18 +127,18 @@ Dashboard.defaultProps = {
             <api-monitor>
                 <View.Dashboard>
                     <View.Header
-                        title="API Monitor"
+                        title={this.i18n('API Monitor')}
                         description="This dashboard shows API response times and cache efficiency.">
                     </View.Header>
                     <View.Body>
                         <Grid.Row>
                             <Grid.Col all={6}>
-                                <View.ChartBlock title="API Requests" description={change}>
+                                <View.ChartBlock title={this.i18n('API Requests')} description={change}>
                                     <Graph config={this.getApiRequests(this.state.snapshots)}/>
                                 </View.ChartBlock>
                             </Grid.Col>
                             <Grid.Col all={6}>
-                                <View.ChartBlock title="API Response Time" description={change}>
+                                <View.ChartBlock title={this.i18n('API Response Time')} description={change}>
                                     <Graph config={this.getResponseTime(this.state.snapshots)}/>
                                 </View.ChartBlock>
                             </Grid.Col>
@@ -153,17 +156,17 @@ Dashboard.defaultProps = {
                                             <Input {...searchProps} onEnter={apply()}/>
                                         </Grid.Col>
                                         <Grid.Col all={2}>
-                                            <Button type="secondary" align="right" label="Reset Filters" onClick={reset()}/>
+                                            <Button type="secondary" align="right" label={this.i18n('Reset Filters')} onClick={reset()}/>
                                         </Grid.Col>
                                     </Grid.Row>
                                 )}
                             </List.FormFilters>
                             <List.Table>
                                 <List.Table.Row>
-                                    <List.Table.Field name="method" align="left" label="Method" sort="method"/>
-                                    <List.Table.Field name="url" align="left" label="URL" sort="url"/>
-                                    <List.Table.Field name="referer" align="left" label="Referrer" sort="referer"/>
-                                    <List.Table.Field name="responseTime" align="center" label="Response Time" sort="responseTime"/>
+                                    <List.Table.Field name="method" align="left" label={this.i18n('Method')} sort="method"/>
+                                    <List.Table.Field name="url" align="left" label={this.i18n('URL')} sort="url"/>
+                                    <List.Table.Field name="referer" align="left" label={this.i18n('Referrer')} sort="referer"/>
+                                    <List.Table.Field name="responseTime" align="center" label={this.i18n('Response Time')} sort="responseTime"/>
                                 </List.Table.Row>
                             </List.Table>
                             <List.Pagination/>

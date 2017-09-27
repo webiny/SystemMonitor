@@ -2,6 +2,9 @@ import React from 'react';
 import Webiny from 'webiny';
 import Dashboard from './Dashboard';
 
+/**
+ * @i18n.namespace SystemMonitor.Backend.ApiMonitor
+ */
 class ApiMonitor extends Webiny.App.Module {
 
     init() {
@@ -9,9 +12,9 @@ class ApiMonitor extends Webiny.App.Module {
         const Menu = Webiny.Ui.Menu;
 
         this.registerMenus(
-            <Menu label="System" icon="icon-tools">
-                <Menu label="System Monitor">
-                    <Menu label="API Monitor" route="SystemMonitor.ApiMonitor.Dashboard"/>
+            <Menu label={this.i18n('System')} icon="icon-tools">
+                <Menu label={this.i18n('System Monitor')}>
+                    <Menu label={this.i18n('API Monitor')} route="SystemMonitor.ApiMonitor.Dashboard"/>
                 </Menu>
             </Menu>
         );
