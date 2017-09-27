@@ -22,7 +22,7 @@ Dashboard.defaultProps = {
 
         const collectionList = {
             name: 'ns',
-            placeholder: 'Filter by namespace',
+            placeholder: this.i18n('Filter by namespace'),
             allowClear: true,
             api: '/services/system-monitor/db-profiles',
             url: '/namespaces',
@@ -31,14 +31,14 @@ Dashboard.defaultProps = {
 
         const operationList = {
             name: 'op',
-            placeholder: 'Filter by operation',
+            placeholder: this.i18n('Filter by operation'),
             allowClear: true,
             options: {
-                query: 'Query',
-                insert: 'Insert',
-                update: 'Update',
-                remove: 'Remove',
-                command: 'Command'
+                query: this.i18n('Query'),
+                insert: this.i18n('Insert'),
+                update: this.i18n('Update'),
+                remove: this.i18n('Remove'),
+                command: this.i18n('Command')
             }
         };
 
@@ -48,7 +48,7 @@ Dashboard.defaultProps = {
             <View.List>
                 <View.Header
                     title={this.i18n('DB Monitor')}
-                    description="This dashboard shows DB query details.">
+                    description={this.i18n('This dashboard shows DB query details.')}>
                 </View.Header>
                 <View.Body>
                     <List {...listProps}>

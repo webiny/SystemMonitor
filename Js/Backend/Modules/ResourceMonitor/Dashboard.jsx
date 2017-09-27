@@ -48,7 +48,7 @@ Dashboard.defaultProps = {
             <View.Dashboard>
                 <View.Header
                     title={this.i18n('Resource Monitor')}
-                    description="Here you can monitor your servers. Once you setup server agents, data from your servers will be available in this dashboard.">
+                    description={this.i18n('Here you can monitor your servers. Once you setup server agents, data from your servers will be available in this dashboard.')}>
                     <Button align="right" type="primary" icon="icon-plus-circled" onClick={() => this.addServer.show()} label={this.i18n('Add server')}/>
                     <AddServerModal ref={ref => this.addServer = ref} loadServers={this.loadServers}/>
                 </View.Header>
@@ -57,7 +57,7 @@ Dashboard.defaultProps = {
                         <Grid.Row>
                             <Grid.Col all={12}>
                                 {this.state.loading ? <Loader/> : null}
-                                <p>You have not yet created any servers to monitor. Start by clicking "Add server".</p>
+                                <p>{this.i18n('You have not yet created any servers to monitor. Start by clicking "Add server".')}</p>
                             </Grid.Col>
                         </Grid.Row>
                     </Logic.Hide>

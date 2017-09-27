@@ -16,11 +16,11 @@ class Dashboard extends Webiny.Ui.View {
         };
         this.interval = null;
         this.options = {
-            '1h': 'Last hour',
-            '6h': 'Last 6 hours',
-            '24h': 'Last 24 hours',
-            '7d': 'Last 7 days',
-            '30d': 'Last 30 days'
+            '1h': this.i18n('Last hour'),
+            '6h': this.i18n('Last 6 hours'),
+            '24h': this.i18n('Last 24 hours'),
+            '7d': this.i18n('Last 7 days'),
+            '30d': this.i18n('Last 30 days')
         };
     }
 
@@ -84,14 +84,14 @@ class Dashboard extends Webiny.Ui.View {
     }
 
     getApiRequests(snapshots) {
-        const cacheHit = ['Cache Hit'].concat(_.map(snapshots, x => x.hitCount));
-        const cacheMiss = ['Cache Miss'].concat(_.map(snapshots, x => x.missCount));
+        const cacheHit = [Webiny.I18n('Cache Hit')].concat(_.map(snapshots, x => x.hitCount));
+        const cacheMiss = [Webiny.I18n('Cache Miss')].concat(_.map(snapshots, x => x.missCount));
 
         return this.getLineChartConfig(snapshots, [cacheHit, cacheMiss]);
     }
 
     getResponseTime(snapshots) {
-        const responseTime = ['Mean response time (ms)'].concat(_.map(snapshots, x => (x.totalTime / x.numRequests).toFixed(2)));
+        const responseTime = [Webiny.I18n('Mean response time (ms)')].concat(_.map(snapshots, x => (x.totalTime / x.numRequests).toFixed(2)));
 
         return this.getLineChartConfig(snapshots, [responseTime]);
     }
@@ -107,7 +107,7 @@ Dashboard.defaultProps = {
         };
 
         const searchProps = {
-            placeholder: 'Search by URL',
+            placeholder: this.i18n('Search by URL'),
             name: '_searchQuery'
         };
 
@@ -128,7 +128,7 @@ Dashboard.defaultProps = {
                 <View.Dashboard>
                     <View.Header
                         title={this.i18n('API Monitor')}
-                        description="This dashboard shows API response times and cache efficiency.">
+                        description={this.i18n('This dashboard shows API response times and cache efficiency.')}>
                     </View.Header>
                     <View.Body>
                         <Grid.Row>
@@ -147,7 +147,7 @@ Dashboard.defaultProps = {
                 </View.Dashboard>
                 <View.List>
                     <View.Body>
-                        <h2>API Log</h2>
+                        <h2>{this.i18n('API Log')}</h2>
                         <List {...listProps}>
                             <List.FormFilters>
                                 {({apply, reset}) => (

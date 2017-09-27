@@ -18,7 +18,7 @@ SettingsForm.defaultProps = {
                     <View.Form>
                         <View.Header
                             title={this.i18n('System Monitor Settings')}
-                            description="Set your system monitor settings here"/>
+                            description={this.i18n('Set your system monitor settings here')}/>
                         <View.Body noPadding>
                             <Tabs size="large">
                                 <Tabs.Tab label={this.i18n('API Monitor')} icon="fa-rocket">
@@ -26,12 +26,12 @@ SettingsForm.defaultProps = {
                                         <Switch
                                             label={this.i18n('API monitor')}
                                             name="apiMonitor.status"
-                                            description="Turn API monitor on or off"/>
+                                            description={this.i18n('Turn API monitor on or off')}/>
                                         <Input
                                             label={this.i18n('Slow log threshold')}
                                             name="apiMonitor.slowLogThreshold"
                                             validate={_.get(model, 'apiMonitor.status', false) ? 'required,gte:0' : null}
-                                            description="All API responses above this response time will be logged to the slow log. Note: response time is defined in milliseconds."/>
+                                            description={this.i18n('All API responses above this response time will be logged to the slow log. Note: response time is defined in milliseconds.')}/>
                                     </Grid.Col>
                                 </Tabs.Tab>
                                 <Tabs.Tab label={this.i18n('Database Monitor')} icon="fa-database">
@@ -39,12 +39,12 @@ SettingsForm.defaultProps = {
                                         <Switch
                                             label={this.i18n('Database monitor')}
                                             name="dbMonitor.status"
-                                            description="Turn DB monitor on or off"/>
+                                            description={this.i18n('Turn DB monitor on or off')}/>
                                         <Input
                                             label={this.i18n('Slow query threshold')}
                                             name="dbMonitor.slowQueryThreshold"
                                             validate={_.get(model, 'dbMonitor.status', false) ? 'required,gte:0' : null}
-                                            description="All DB queries above this response time will be logged. Note: response time is defined in milliseconds."/>
+                                            description={this.i18n('All DB queries above this response time will be logged. Note: response time is defined in milliseconds.')}/>
                                     </Grid.Col>
                                 </Tabs.Tab>
                             </Tabs>

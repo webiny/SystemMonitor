@@ -9,12 +9,12 @@ class SettingsModal extends Webiny.Ui.ModalComponent {
     renderDialog() {
         const reasonProps = {
             name: 'trigger',
-            placeholder: 'Alarm trigger',
+            placeholder: this.i18n('Alarm trigger'),
             options: {
-                cpu: 'CPU reaches',
-                memory: 'Memory reaches',
-                disk: 'Disk reaches',
-                load: 'Last 15 min load reaches'
+                cpu: this.i18n('CPU reaches'),
+                memory: this.i18n('Memory reaches'),
+                disk: this.i18n('Disk reaches'),
+                load: this.i18n('Last 15 min load reaches')
             }
         };
 
@@ -29,19 +29,19 @@ class SettingsModal extends Webiny.Ui.ModalComponent {
                             <Modal.Header title={this.i18n('System Monitor Alarms')}/>
                             <Modal.Body>
                                 <Alert type="info">
-                                    Recurring alarms will only send a notification once every 15 minutes.
+                                    {this.i18n('Recurring alarms will only send a notification once every 15 minutes.')}
                                 </Alert>
                                 <Section title={this.i18n('Alarms')}/>
                                 <Dynamic.Fieldset name="alarms">
                                     <Dynamic.Row>
                                         {({data, actions}) => {
                                             return (
-                                                <Grid.Row>
+                                                <Grid.Row>π
                                                     <Grid.Col all={5}>
                                                         <Select {...reasonProps} validate="required"/>
                                                     </Grid.Col>
                                                     <Grid.Col all={4}>
-                                                        <Input placeholder={this.i18n('Treshold')} name="treshold" validate="required"/>
+                                                        <Input placeholder={this.i18n('Threshold')} name="threshold" validate="required"/>
                                                     </Grid.Col>
                                                     <Grid.Col all={3}>
                                                         <ButtonGroup>
@@ -58,7 +58,7 @@ class SettingsModal extends Webiny.Ui.ModalComponent {
                                             return (
                                                 <Grid.Row>
                                                     <Grid.Col all={12}>
-                                                        <h5>You have not yet created any alarms. Start by clicking "Add alarm"!</h5>
+                                                        <h5>{this.i18n(`You have not yet created any alarms. Start by clicking "Add alarm"!`)}</h5>
                                                         <Button type="primary" label={this.i18n('Add alarm')} onClick={actions.add()}/>
                                                     </Grid.Col>
                                                 </Grid.Row>
@@ -76,8 +76,12 @@ class SettingsModal extends Webiny.Ui.ModalComponent {
                                                 label={this.i18n('Slack Token')}
                                                 name="token"
                                                 validate="required"
-                                                description={<span>Bot token to use when sending notifications. <a target="_blank"
-                                                                                                                   href="https://api.slack.com/bot-users">Create your Slack bot here.</a></span>}/>
+                                                description={(
+                                                    <span>
+                                                        {this.i18n('Bot token to use when sending notifications.')}
+                                                        <a target="_blank" href="https://api.slack.com/bot-users">{this.i18n('Create your Slack bot here.')}</a>
+                                                    </span>
+                                                )}/>
                                             <Grid.Row>
                                                 <Grid.Col all={4}>
                                                     <Input label={this.i18n('Team')} name="team" validate="required"/>

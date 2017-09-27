@@ -52,26 +52,26 @@ class Dashboard extends Webiny.Ui.View {
                     memoryUsageChart: {
                         data: {
                             columns: [
-                                ['Used', data.memory_usage.used_memory],
-                                ['Free', data.memory_usage.free_memory],
-                                ['Wasted', data.memory_usage.wasted_memory]
+                                [Webiny.I18n('Used'), data.memory_usage.used_memory],
+                                [Webiny.I18n('Free'), data.memory_usage.free_memory],
+                                [Webiny.I18n('Wasted'), data.memory_usage.wasted_memory]
                             ],
                             type: 'donut'
                         },
                         donut: {
-                            title: 'Memory usage'
+                            title: Webiny.I18n('Memory usage')
                         }
                     },
                     hitsChart: {
                         data: {
                             columns: [
-                                ['Hits', data.opcache_statistics.hits],
-                                ['Misses', data.opcache_statistics.misses]
+                                [Webiny.I18n('Hits'), data.opcache_statistics.hits],
+                                [Webiny.I18n('Misses'), data.opcache_statistics.misses]
                             ],
                             type: 'donut'
                         },
                         donut: {
-                            title: 'Cache hits'
+                            title: Webiny.I18n('Cache hits')
                         }
                     }
                 });
@@ -83,7 +83,7 @@ class Dashboard extends Webiny.Ui.View {
         const {moment} = this.props;
         switch (type) {
             case 'boolean':
-                value = value === true ? 'Yes' : 'No';
+                value = value === true ? Webiny.I18n('Yes') : Webiny.I18n('No');
                 break;
             case 'filesize':
                 value = filesize(value);
@@ -92,7 +92,7 @@ class Dashboard extends Webiny.Ui.View {
                 value = Math.round(value) + '%';
                 break;
             case 'time':
-                value = value > 0 ? moment(value * 1000).format('YYYY-MM-DD HH:mm:ss') : 'Never';
+                value = value > 0 ? moment(value * 1000).format('YYYY-MM-DD HH:mm:ss') : Webiny.I18n('Never');
                 break;
             default:
                 break;
@@ -113,7 +113,7 @@ class Dashboard extends Webiny.Ui.View {
 
         switch (type) {
             case 'boolean':
-                value = value === true ? 'Yes' : 'No';
+                value = value === true ? Webiny.I18n('Yes') : Webiny.I18n('No');
                 break;
             default:
                 break;
@@ -140,7 +140,7 @@ class Dashboard extends Webiny.Ui.View {
 
         if (this.state.data === false) {
             return (
-                <Alert>OpCache is not configured on your system!</Alert>
+                <Alert>{this.i18n('OpCache is not configured on your system!')}</Alert>
             );
         }
 
@@ -154,7 +154,7 @@ class Dashboard extends Webiny.Ui.View {
                             <table className="table table-striped">
                                 <tbody>
                                 {Object.keys(this.keys).map(key => {
-                                    return this.renderRow(key, _.get(this.state.data, key, 'N/A'), this.keys[key]);
+                                    return this.renderRow(key, _.get(this.state.data, key, Webiny.I18n('N/A')), this.keys[key]);
                                 })}
                                 </tbody>
                             </table>
@@ -218,7 +218,7 @@ Dashboard.defaultProps = {
             <View.List>
                 <View.Header
                     title={this.i18n('OpCache Monitor')}
-                    description="This dashboard shows OpCache stats and allows you to flush cache entirely or for specific script.">
+                    description={this.i18n('This dashboard shows OpCache stats and allows you to flush cache entirely or for specific script.')}>
                     <Logic.Hide if={!this.state.data}>
                         <ClickConfirm message={this.i18n('Are you sure you want to flush entire cache?')}>
                             <Button

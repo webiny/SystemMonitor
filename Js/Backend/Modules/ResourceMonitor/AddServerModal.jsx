@@ -24,15 +24,15 @@ class AddServerModal extends Webiny.Ui.ModalComponent {
                                     <Grid.Col all={12}>
                                         <Input label={this.i18n('Server name')} name="name" validate="required"/>
                                         <Select name="type" label={this.i18n('Server type')} validate="required" placeholder={this.i18n('Server type')}>
-                                            <option value="web">Web server</option>
-                                            <option value="other">Other</option>
+                                            <option value="web">{this.i18n('Web server')}</option>
+                                            <option value="other">{this.i18n('Other')}</option>
                                         </Select>
                                         <Logic.Hide if={_.get(model, 'type') !== 'web'}>
                                             <Input
                                                 label={this.i18n('Heartbeat URL')}
                                                 name="heartbeat"
                                                 validate="required,url"
-                                                description="This URL will be requested to see if server is alive. Provide a URL that does not require authentication."/>
+                                                description={this.i18n('This URL will be requested to see if server is alive. Provide a URL that does not require authentication.')}/>
                                         </Logic.Hide>
                                     </Grid.Col>
                                 </Grid.Row>

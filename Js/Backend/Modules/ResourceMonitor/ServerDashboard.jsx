@@ -18,11 +18,11 @@ class ServerDashboard extends Webiny.Ui.View {
         this.api = new Webiny.Api.Endpoint('/entities/system-monitor/servers');
         this.interval = null;
         this.options = {
-            '1h': 'Last hour',
-            '6h': 'Last 6 hours',
-            '24h': 'Last 24 hours',
-            '7d': 'Last 7 days',
-            '30d': 'Last 30 days'
+            '1h': this.i18n('Last hour'),
+            '6h': this.i18n('Last 6 hours'),
+            '24h': this.i18n('Last 24 hours'),
+            '7d': this.i18n('Last 7 days'),
+            '30d': this.i18n('Last 30 days')
         };
         this.bindMethods('loadStats', 'getCpuConfig', 'getMemoryConfig', 'getTimeline', 'getDiskConfig');
     }
@@ -130,15 +130,17 @@ class ServerDashboard extends Webiny.Ui.View {
         };
     }
 
+
+
     getCpuConfig(snapshots) {
-        const userColumns = ['User'].concat(_.map(snapshots, x => x.stats.cpu.user));
-        const systemColumns = ['System'].concat(_.map(snapshots, x => x.stats.cpu.system));
+        const userColumns = [Webiny.I18n('User')].concat(_.map(snapshots, x => x.stats.cpu.user));
+        const systemColumns = [Webiny.I18n('System')].concat(_.map(snapshots, x => x.stats.cpu.system));
 
         return this.getLineChartConfig(snapshots, [userColumns, systemColumns]);
     }
 
     getMemoryConfig(snapshots) {
-        const userColumns = ['Memory used'].concat(_.map(snapshots, s => Math.round((s.stats.memory.used / s.stats.memory.total) * 100)));
+        const userColumns = [Webiny.I18n('Memory used')].concat(_.map(snapshots, s => Math.round((s.stats.memory.used / s.stats.memory.total) * 100)));
 
         return this.getLineChartConfig(snapshots, [userColumns]);
     }
@@ -148,8 +150,8 @@ class ServerDashboard extends Webiny.Ui.View {
             return null;
         }
         return this.getDonutChartConfig(disk.name, [
-            ['Used', disk.percentage],
-            ['Free', 100 - disk.percentage]
+            [Webiny.I18n('Used'), disk.percentage],
+            [Webiny.I18n('Free'), 100 - disk.percentage]
         ]);
     }
 
@@ -181,7 +183,7 @@ ServerDashboard.defaultProps = {
                 type="primary"
                 align="right"
                 download={d => d('POST', `/entities/system-monitor/server/${this.props.server.id}/agent`)}>
-                <Icon icon="fa-code"/> Download agent script
+                <Icon icon="fa-code"/> {this.i18n('Download agent script')}
             </DownloadLink>
         );
 
@@ -191,10 +193,10 @@ ServerDashboard.defaultProps = {
                 <Logic.Hide if={this.state.snapshots.length > 0 || this.state.loading}>
                     <Grid.Col all={9}>
                         <p>
-                            There are no snapshots recorded for this server so far. To start monitoring your server, download an agent
-                            script
-                            and place it anywhere you want on the server. After that add a crontab entry to run this script every minute,
-                            ex:
+                            {this.i18n(`There are no snapshots recorded for this server so far.
+                                        To start monitoring your server, download an agent
+                                        script and place it anywhere you want on the server.
+                                        After that add a crontab entry to run this script every minute, ex:`)}
                         </p>
                         <code>* * * * * php ~/www/monitor/webiny-agent.php</code>
                     </Grid.Col>
