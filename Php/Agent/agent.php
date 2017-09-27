@@ -1,8 +1,8 @@
 <?php
-define('WBY_SERVER', '{serverId}'); // Tu ide ID servera iz baze
-define('WBY_WEBSERVER', '{heartbeat}'); // Url koji treba pingati da se vidi dal je server ziv
-define('WBY_REPORT_TO', '{reportTo}'); // Kamo se reporta snapshot
-define('WBY_API_TOKEN', '{apiToken}'); // Api token sistema u koji se reporta
+define('WBY_SERVER', '{serverId}'); // Server ID these stats belong to
+define('WBY_WEBSERVER', '{heartbeat}'); // URL to ping to check if server is alive
+define('WBY_REPORT_TO', '{reportTo}'); // Endpoint for stats reporting
+define('WBY_API_TOKEN', '{apiToken}'); // API token used for authorization
 
 // Get `top` output
 exec('top -b -d2 -n2', $top);
@@ -72,6 +72,8 @@ if (WBY_WEBSERVER !== '') {
 $ch = curl_init(WBY_REPORT_TO);
 curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode(array('server' => WBY_SERVER, 'stats' => $stats)));
 curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-Webiny-Authorization: ' . WBY_API_TOKEN));
 curl_exec($ch);
