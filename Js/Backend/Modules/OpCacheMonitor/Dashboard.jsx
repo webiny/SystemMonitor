@@ -137,9 +137,7 @@ class Dashboard extends Webiny.Ui.View {
 
         if (this.state.data === false) {
             return (
-                <Grid.Col xs={12}>
-                    <Alert>OpCache is not configured on your system!</Alert>
-                </Grid.Col>
+                <Alert>OpCache is not configured on your system!</Alert>
             );
         }
 
