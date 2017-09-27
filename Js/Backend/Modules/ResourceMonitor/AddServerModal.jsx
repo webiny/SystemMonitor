@@ -15,7 +15,7 @@ class AddServerModal extends Webiny.Ui.ModalComponent {
                     {({model, form}) => (
                         <Modal.Content>
                             <Form.Loader/>
-                            <Modal.Header title="Add server to monitor"/>
+                            <Modal.Header title="Add server to monitor" onClose={this.hide}/>
                             <Modal.Body>
                                 <Grid.Row>
                                     <Grid.Col all={12}>
@@ -35,7 +35,7 @@ class AddServerModal extends Webiny.Ui.ModalComponent {
                                 </Grid.Row>
                             </Modal.Body>
                             <Modal.Footer>
-                                <Button type="secondary" label="Close" onClick={this.hide}/>
+                                <Button label="Close" onClick={this.hide}/>
                                 <Button type="primary" label="Add" onClick={form.submit}/>
                             </Modal.Footer>
                         </Modal.Content>
