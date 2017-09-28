@@ -17,6 +17,7 @@ class Snapshot extends AbstractEntity
 {
     protected static $classId = 'SystemMonitor.Entities.Snapshot';
     protected static $collection = 'SystemMonitorSnapshots';
+    protected static $i18nNamespace = 'SystemMonitorSnapshots';
 
     public function __construct()
     {

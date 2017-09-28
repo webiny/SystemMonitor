@@ -21,6 +21,7 @@ class ApiSlowLog extends AbstractEntity
 {
     protected static $classId = 'SystemMonitor.Entities.ApiSlowLog';
     protected static $collection = 'SystemMonitorApiSlowLog';
+    protected static $i18nNamespace = 'SystemMonitorApiSlowLog';
 
     public function __construct()
     {

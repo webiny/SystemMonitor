@@ -19,6 +19,7 @@ class Server extends AbstractEntity
 {
     protected static $classId = 'SystemMonitor.Entities.Server';
     protected static $collection = 'SystemMonitorServers';
+    protected static $i18nNamespace = 'SystemMonitorServers';
 
     public function __construct()
     {
