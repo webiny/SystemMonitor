@@ -43,21 +43,20 @@ class Dashboard extends Webiny.Ui.View {
 
 Dashboard.defaultProps = {
     renderer() {
-        const {View, Button, Logic, Grid, Tabs, Loader} = this.props;
+        const {View, Button, Logic, Grid, Tabs, Loader, Alert} = this.props;
         return (
-            <View.Dashboard>
-                <View.Header
-                    title={this.i18n('Resource Monitor')}
+            <View.List>
+                <View.Header title={this.i18n('Resource Monitor')}
                     description={this.i18n('Here you can monitor your servers. Once you setup server agents, data from your servers will be available in this dashboard.')}>
                     <Button align="right" type="primary" icon="icon-plus-circled" onClick={() => this.addServer.show()} label={this.i18n('Add server')}/>
                     <AddServerModal ref={ref => this.addServer = ref} loadServers={this.loadServers}/>
                 </View.Header>
-                <View.Body>
+                <View.Body noPadding={this.state.servers.length > 0}>
                     <Logic.Hide if={this.state.servers.length > 0 || this.state.loading}>
                         <Grid.Row>
                             <Grid.Col all={12}>
                                 {this.state.loading ? <Loader/> : null}
-                                <p>{this.i18n('You have not yet created any servers to monitor. Start by clicking "Add server".')}</p>
+                                <Alert type="info">{this.i18n('You have not yet created any servers to monitor. Start by clicking "Add server".')}</Alert>
                             </Grid.Col>
                         </Grid.Row>
                     </Logic.Hide>
@@ -71,9 +70,9 @@ Dashboard.defaultProps = {
                         </Tabs>
                     </Logic.Hide>
                 </View.Body>
-            </View.Dashboard>
+            </View.List>
         );
     }
 };
 
-export default Webiny.createComponent(Dashboard, {modules: ['View', 'Button', 'Logic', 'Grid', 'Tabs', 'Loader']});
+export default Webiny.createComponent(Dashboard, {modules: ['Alert', 'View', 'Button', 'Logic', 'Grid', 'Tabs', 'Loader']});

@@ -125,7 +125,7 @@ Dashboard.defaultProps = {
 
         return (
             <api-monitor>
-                <View.Dashboard>
+                <View.List>
                     <View.Header
                         title={this.i18n('API Monitor')}
                         description={this.i18n('This dashboard shows API response times and cache efficiency.')}>
@@ -144,7 +144,7 @@ Dashboard.defaultProps = {
                             </Grid.Col>
                         </Grid.Row>
                     </View.Body>
-                </View.Dashboard>
+                </View.List>
                 <View.List>
                     <View.Body>
                         <h2>{this.i18n('API Log')}</h2>

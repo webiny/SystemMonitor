@@ -8,6 +8,8 @@ use MongoDB\BSON\Regex;
 
 /**
  * Class DbProfiles
+ *
+ * This is handled through a service because we do not have an entity to represent a DbProfile since it is a native MongoDb thing.
  */
 class DbProfiles extends AbstractService
 {

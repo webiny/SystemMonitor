@@ -5,46 +5,68 @@
         "description": "Allows user to perform all actions on System Monitor app",
         "permissions": [
             {
-                "classId": "entities",
+                "classId": "SystemMonitor.Entities.ApiSlowLog",
                 "rules": {
-                    "Apps\\SystemMonitor\\Php\\Entities\\ApiSlowLog": {
-                        "c": true,
-                        "r": true,
-                        "u": true,
-                        "d": true
+                    "c": true,
+                    "r": true,
+                    "u": true,
+                    "d": true
+                }
+            },
+            {
+                "classId": "SystemMonitor.Entities.ApiSnapshot",
+                "rules": {
+                    "c": true,
+                    "r": true,
+                    "u": true,
+                    "d": true,
+                    "stats/{preset}": {
+                        "get": true
+                    }
+                }
+            },
+            {
+                "classId": "SystemMonitor.Entities.Server",
+                "rules": {
+                    "c": true,
+                    "r": true,
+                    "u": true,
+                    "d": true,
+                    "{id}/agent": {
+                        "get": true,
+                        "post": true
                     },
-                    "Apps\\SystemMonitor\\Php\\Entities\\ApiSnapshot": {
-                        "c": true,
-                        "r": true,
-                        "u": true,
-                        "d": true,
-                        "stats/{preset}": {
-                            "get": true
-                        }
+                    "{id}/snapshots/{preset}": {
+                        "get": true
+                    }
+                }
+            },
+            {
+                "classId": "SystemMonitor.Entities.Snapshot",
+                "rules": {
+                    "c": true,
+                    "r": true,
+                    "u": true,
+                    "d": true
+                }
+            },
+            {
+                "classId": "SystemMonitor.Entities.Settings",
+                "rules": {
+                    "/": {
+                        "get": true,
+                        "patch": true
+                    }
+                }
+            },
+            {
+                "classId": "SystemMonitor.Services.DbProfiles",
+                "rules": {
+                    "namespaces": {
+                        "get": true
                     },
-                    "Apps\\SystemMonitor\\Php\\Entities\\Server": {
-                        "c": true,
-                        "r": true,
-                        "u": true,
-                        "d": true,
-                        "{id}/agent": {
-                            "get": true
-                        },
-                        "{id}/snapshots/{preset}": {
-                            "get": true
-                        }
-                    },
-                    "Apps\\SystemMonitor\\Php\\Entities\\Snapshot": {
-                        "c": true,
-                        "r": true,
-                        "u": true,
-                        "d": true
-                    },
-                    "Apps\\SystemMonitor\\Php\\Entities\\Settings": {
-                        "/": {
-                            "get": true,
-                            "patch": true
-                        }
+                    "/": {
+                        "get": true
                     }
                 }
             }
