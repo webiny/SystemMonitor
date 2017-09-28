@@ -5,7 +5,7 @@ namespace Apps\SystemMonitor\Php\Entities;
 /**
  * Class Settings
  */
-class Settings extends \Apps\Webiny\Php\Entities\Settings
+class Settings extends \Apps\Webiny\Php\Entities\AbstractSettings
 {
     protected static $classId = 'SystemMonitor.Entities.Settings';
     protected static $key = 'system-monitor';
