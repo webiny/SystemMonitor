@@ -11,7 +11,7 @@ class Dashboard extends Webiny.Ui.View {
         super(props);
 
         this.state = {
-            servers: []
+            servers: null
         };
         this.bindMethods('loadServers');
     }
@@ -39,40 +39,50 @@ class Dashboard extends Webiny.Ui.View {
             this.request = null;
         });
     }
+
+    renderContent() {
+        if (this.state.servers === null) {
+            return null;
+        }
+
+        const {Alert, Tabs} = this.props;
+        if (!this.state.servers.length) {
+            return (
+                <Alert type="info">{this.i18n('You have not yet created any servers to monitor. Start by clicking "Add server".')}</Alert>
+            );
+        }
+
+        return (
+            <Tabs size="large">
+                {this.state.servers.map(s => (
+                    <Tabs.Tab key={s.id} label={s.name}>
+                        <ServerDashboard server={s}/>
+                    </Tabs.Tab>
+                ))}
+            </Tabs>
+        );
+    }
 }
 
 Dashboard.defaultProps = {
     renderer() {
-        const {View, Button, Logic, Grid, Tabs, Loader, Alert} = this.props;
+        const {View, Button, Loader} = this.props;
         return (
             <View.List>
-                <View.Header title={this.i18n('Resource Monitor')}
+                <View.Header
+                    title={this.i18n('Resource Monitor')}
                     description={this.i18n('Here you can monitor your servers. Once you setup server agents, data from your servers will be available in this dashboard.')}>
-                    <Button align="right" type="primary" icon="icon-plus-circled" onClick={() => this.addServer.show()} label={this.i18n('Add server')}/>
+                    <Button align="right" type="primary" icon="icon-plus-circled" onClick={() => this.addServer.show()}
+                            label={this.i18n('Add server')}/>
                     <AddServerModal ref={ref => this.addServer = ref} loadServers={this.loadServers}/>
                 </View.Header>
-                <View.Body noPadding={this.state.servers.length > 0}>
-                    <Logic.Hide if={this.state.servers.length > 0 || this.state.loading}>
-                        <Grid.Row>
-                            <Grid.Col all={12}>
-                                {this.state.loading ? <Loader/> : null}
-                                <Alert type="info">{this.i18n('You have not yet created any servers to monitor. Start by clicking "Add server".')}</Alert>
-                            </Grid.Col>
-                        </Grid.Row>
-                    </Logic.Hide>
-                    <Logic.Hide if={this.state.servers.length === 0}>
-                        <Tabs size="large">
-                            {this.state.servers.map(s => (
-                                <Tabs.Tab key={s.id} label={s.name}>
-                                    <ServerDashboard server={s}/>
-                                </Tabs.Tab>
-                            ))}
-                        </Tabs>
-                    </Logic.Hide>
+                <View.Body noPadding>
+                    {this.state.loading ? <Loader/> : null}
+                    {this.renderContent()}
                 </View.Body>
-            </View.List>
+            </View.List >
         );
     }
 };
 
-export default Webiny.createComponent(Dashboard, {modules: ['Alert', 'View', 'Button', 'Logic', 'Grid', 'Tabs', 'Loader']});
+export default Webiny.createComponent(Dashboard, {modules: ['Alert', 'View', 'Button', 'Tabs', 'Loader']});
