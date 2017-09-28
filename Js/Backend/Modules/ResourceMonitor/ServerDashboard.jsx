@@ -3,6 +3,9 @@ import _ from 'lodash';
 import Webiny from 'webiny';
 import Graph from './Graph';
 
+/**
+ * @i18n.namespace SystemMonitor.Backend.ResourceMonitor.ServerDashboard
+ */
 class ServerDashboard extends Webiny.Ui.View {
     constructor(props) {
         super(props);
@@ -15,11 +18,11 @@ class ServerDashboard extends Webiny.Ui.View {
         this.api = new Webiny.Api.Endpoint('/entities/system-monitor/servers');
         this.interval = null;
         this.options = {
-            '1h': 'Last hour',
-            '6h': 'Last 6 hours',
-            '24h': 'Last 24 hours',
-            '7d': 'Last 7 days',
-            '30d': 'Last 30 days'
+            '1h': this.i18n('Last hour'),
+            '6h': this.i18n('Last 6 hours'),
+            '24h': this.i18n('Last 24 hours'),
+            '7d': this.i18n('Last 7 days'),
+            '30d': this.i18n('Last 30 days')
         };
         this.bindMethods('loadStats', 'getCpuConfig', 'getMemoryConfig', 'getTimeline', 'getDiskConfig');
     }
@@ -127,15 +130,17 @@ class ServerDashboard extends Webiny.Ui.View {
         };
     }
 
+
+
     getCpuConfig(snapshots) {
-        const userColumns = ['User'].concat(_.map(snapshots, x => x.stats.cpu.user));
-        const systemColumns = ['System'].concat(_.map(snapshots, x => x.stats.cpu.system));
+        const userColumns = [Webiny.I18n('User')].concat(_.map(snapshots, x => x.stats.cpu.user));
+        const systemColumns = [Webiny.I18n('System')].concat(_.map(snapshots, x => x.stats.cpu.system));
 
         return this.getLineChartConfig(snapshots, [userColumns, systemColumns]);
     }
 
     getMemoryConfig(snapshots) {
-        const userColumns = ['Memory used'].concat(_.map(snapshots, s => Math.round((s.stats.memory.used / s.stats.memory.total) * 100)));
+        const userColumns = [Webiny.I18n('Memory used')].concat(_.map(snapshots, s => Math.round((s.stats.memory.used / s.stats.memory.total) * 100)));
 
         return this.getLineChartConfig(snapshots, [userColumns]);
     }
@@ -145,8 +150,8 @@ class ServerDashboard extends Webiny.Ui.View {
             return null;
         }
         return this.getDonutChartConfig(disk.name, [
-            ['Used', disk.percentage],
-            ['Free', 100 - disk.percentage]
+            [Webiny.I18n('Used'), disk.percentage],
+            [Webiny.I18n('Free'), 100 - disk.percentage]
         ]);
     }
 
@@ -163,11 +168,11 @@ ServerDashboard.defaultProps = {
         const {Dropdown, DownloadLink, Grid, Logic, Loader, Button, View, Icon} = this.props;
         const change = (
             <Dropdown title={this.options[this.state.snapshotsRange]} className="balloon">
-                <Dropdown.Link title="Last hour" onClick={() => this.loadStats('1h')}/>
-                <Dropdown.Link title="Last 6 hours" onClick={() => this.loadStats('6h')}/>
-                <Dropdown.Link title="Last 24 hours" onClick={() => this.loadStats('24h')}/>
-                <Dropdown.Link title="Last 7 days" onClick={() => this.loadStats('7d')}/>
-                <Dropdown.Link title="Last 30 days" onClick={() => this.loadStats('30d')}/>
+                <Dropdown.Link title={this.i18n('Last hour')} onClick={() => this.loadStats('1h')}/>
+                <Dropdown.Link title={this.i18n('Last 6 hours')} onClick={() => this.loadStats('6h')}/>
+                <Dropdown.Link title={this.i18n('Last 24 hours')} onClick={() => this.loadStats('24h')}/>
+                <Dropdown.Link title={this.i18n('Last 7 days')} onClick={() => this.loadStats('7d')}/>
+                <Dropdown.Link title={this.i18n('Last 30 days')} onClick={() => this.loadStats('30d')}/>
             </Dropdown>
         );
 
@@ -178,7 +183,7 @@ ServerDashboard.defaultProps = {
                 type="primary"
                 align="right"
                 download={d => d('POST', `/entities/system-monitor/server/${this.props.server.id}/agent`)}>
-                <Icon icon="fa-code"/> Download agent script
+                <Icon icon="fa-code"/> {this.i18n('Download agent script')}
             </DownloadLink>
         );
 
@@ -188,10 +193,10 @@ ServerDashboard.defaultProps = {
                 <Logic.Hide if={this.state.snapshots.length > 0 || this.state.loading}>
                     <Grid.Col all={9}>
                         <p>
-                            There are no snapshots recorded for this server so far. To start monitoring your server, download an agent
-                            script
-                            and place it anywhere you want on the server. After that add a crontab entry to run this script every minute,
-                            ex:
+                            {this.i18n(`There are no snapshots recorded for this server so far.
+                                        To start monitoring your server, download an agent
+                                        script and place it anywhere you want on the server.
+                                        After that add a crontab entry to run this script every minute, ex:`)}
                         </p>
                         <code>* * * * * php ~/www/monitor/webiny-agent.php</code>
                     </Grid.Col>
@@ -204,26 +209,26 @@ ServerDashboard.defaultProps = {
                             align="right"
                             onClick={() => this.loadStats(this.state.snapshotsRange)}
                             type="secondary"
-                            label="Refresh"
+                            label={this.i18n('Refresh')}
                             icon="fa-refresh"/>
                     </Grid.Col>
                     <Grid.Col all={6}>
-                        <View.ChartBlock title="CPU usage (%)" description={change}>
+                        <View.ChartBlock title={this.i18n('CPU usage (%)')} description={change}>
                             <Graph config={this.getCpuConfig(this.state.snapshots)}/>
                         </View.ChartBlock>
                     </Grid.Col>
                     <Grid.Col all={6}>
-                        <View.ChartBlock title="Memory usage (%)" description={change}>
+                        <View.ChartBlock title={this.i18n('Memory usage (%)')} description={change}>
                             <Graph config={this.getMemoryConfig(this.state.snapshots)}/>
                         </View.ChartBlock>
                     </Grid.Col>
                     <Grid.Col all={3}>
-                        <View.ChartBlock title="Disk usage (%)">
+                        <View.ChartBlock title={this.i18n('Disk usage (%)')}>
                             <Graph config={this.getDiskConfig(disk)}/>
                         </View.ChartBlock>
                     </Grid.Col>
                     <Grid.Col all={9}>
-                        <View.ChartBlock title="System load averages">
+                        <View.ChartBlock title={this.i18n('System load averages')}>
                             <Grid.Col all={4}>
                                 <h3 className="text-center">1 min</h3>
                                 <Graph config={this.getLoadAverageConfig('1 minute', _.get(loadAverage, 1))}/>

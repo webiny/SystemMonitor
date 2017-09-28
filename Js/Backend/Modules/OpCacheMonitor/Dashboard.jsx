@@ -4,6 +4,9 @@ import Webiny from 'webiny';
 import filesize from 'filesize';
 import Graph from './../ApiMonitor/Graph';
 
+/**
+ * @i18n.namespace SystemMonitor.Backend.OpCacheMonitor.Dashboard
+ */
 class Dashboard extends Webiny.Ui.View {
     constructor(props) {
         super(props);
@@ -49,26 +52,26 @@ class Dashboard extends Webiny.Ui.View {
                     memoryUsageChart: {
                         data: {
                             columns: [
-                                ['Used', data.memory_usage.used_memory],
-                                ['Free', data.memory_usage.free_memory],
-                                ['Wasted', data.memory_usage.wasted_memory]
+                                [Webiny.I18n('Used'), data.memory_usage.used_memory],
+                                [Webiny.I18n('Free'), data.memory_usage.free_memory],
+                                [Webiny.I18n('Wasted'), data.memory_usage.wasted_memory]
                             ],
                             type: 'donut'
                         },
                         donut: {
-                            title: 'Memory usage'
+                            title: Webiny.I18n('Memory usage')
                         }
                     },
                     hitsChart: {
                         data: {
                             columns: [
-                                ['Hits', data.opcache_statistics.hits],
-                                ['Misses', data.opcache_statistics.misses]
+                                [Webiny.I18n('Hits'), data.opcache_statistics.hits],
+                                [Webiny.I18n('Misses'), data.opcache_statistics.misses]
                             ],
                             type: 'donut'
                         },
                         donut: {
-                            title: 'Cache hits'
+                            title: Webiny.I18n('Cache hits')
                         }
                     }
                 });
@@ -80,7 +83,7 @@ class Dashboard extends Webiny.Ui.View {
         const {moment} = this.props;
         switch (type) {
             case 'boolean':
-                value = value === true ? 'Yes' : 'No';
+                value = value === true ? Webiny.I18n('Yes') : Webiny.I18n('No');
                 break;
             case 'filesize':
                 value = filesize(value);
@@ -89,7 +92,7 @@ class Dashboard extends Webiny.Ui.View {
                 value = Math.round(value) + '%';
                 break;
             case 'time':
-                value = value > 0 ? moment(value * 1000).format('YYYY-MM-DD HH:mm:ss') : 'Never';
+                value = value > 0 ? moment(value * 1000).format('YYYY-MM-DD HH:mm:ss') : Webiny.I18n('Never');
                 break;
             default:
                 break;
@@ -110,7 +113,7 @@ class Dashboard extends Webiny.Ui.View {
 
         switch (type) {
             case 'boolean':
-                value = value === true ? 'Yes' : 'No';
+                value = value === true ? Webiny.I18n('Yes') : Webiny.I18n('No');
                 break;
             default:
                 break;
@@ -137,7 +140,7 @@ class Dashboard extends Webiny.Ui.View {
 
         if (this.state.data === false) {
             return (
-                <Alert>OpCache is not configured on your system!</Alert>
+                <Alert>{this.i18n('OpCache is not configured on your system!')}</Alert>
             );
         }
 
@@ -145,13 +148,13 @@ class Dashboard extends Webiny.Ui.View {
 
         return (
             <Tabs size="large">
-                <Tabs.Tab label="Status" icon="icon-gauge">
+                <Tabs.Tab label={this.i18n('Status')} icon="icon-gauge">
                     <Grid.Row>
                         <Grid.Col xs={6}>
                             <table className="table table-striped">
                                 <tbody>
                                 {Object.keys(this.keys).map(key => {
-                                    return this.renderRow(key, _.get(this.state.data, key, 'N/A'), this.keys[key]);
+                                    return this.renderRow(key, _.get(this.state.data, key, Webiny.I18n('N/A')), this.keys[key]);
                                 })}
                                 </tbody>
                             </table>
@@ -162,7 +165,7 @@ class Dashboard extends Webiny.Ui.View {
                         </Grid.Col>
                     </Grid.Row>
                 </Tabs.Tab>
-                <Tabs.Tab label="Configuration" icon="icon-cog">
+                <Tabs.Tab label={this.i18n('Configuration')} icon="icon-cog">
                     <Grid.Row>
                         <Grid.Col xs={12}>
                             <table className="table table-striped">
@@ -175,27 +178,27 @@ class Dashboard extends Webiny.Ui.View {
                         </Grid.Col>
                     </Grid.Row>
                 </Tabs.Tab>
-                <Tabs.Tab label="Scripts" icon="fa-file-code-o">
+                <Tabs.Tab label={this.i18n('Scripts')} icon="fa-file-code-o">
                     <List data={Object.values(this.state.data.scripts)} perPage="50">
                         <List.Table>
                             <List.Table.Row>
-                                <List.Table.Field name="full_path" align="left" label="Full path"/>
-                                <List.Table.Field name="hits" align="center" label="Hits" sort="hits"/>
+                                <List.Table.Field name="full_path" align="left" label={this.i18n('Full path')}/>
+                                <List.Table.Field name="hits" align="center" label={this.i18n('Hits')} sort="hits"/>
                                 <List.Table.FileSizeField
                                     name="memory_consumption"
                                     align="center"
-                                    label="Memory usage"
+                                    label={this.i18n('Memory usage')}
                                     sort="memory_consumption"/>
-                                <List.Table.Field name="last_used_timestamp" align="center" label="Last used">
+                                <List.Table.Field name="last_used_timestamp" align="center" label={this.i18n('Last used')}>
                                     {({data}) => (
                                         <span>{moment(data.last_used_timestamp * 1000).fromNow()}</span>
                                     )}
                                 </List.Table.Field>
                                 <List.Table.Actions>
                                     <List.Table.DeleteAction
-                                        label="Flush cache"
-                                        message="Are you sure you want to flush cache for this script?"
-                                        confirmButtonLabel="Yes, flush it!"
+                                        label={this.i18n('Flush cache')}
+                                        message={this.i18n('Are you sure you want to flush cache for this script?')}
+                                        confirmButtonlabel={this.i18n('Yes, flush it!')}
                                         onConfirm={({data}) => this.api.post('flush', {script: data.full_path}).then(this.loadData)}/>
                                 </List.Table.Actions>
                             </List.Table.Row>
@@ -214,13 +217,13 @@ Dashboard.defaultProps = {
         return (
             <View.List>
                 <View.Header
-                    title="OpCache Monitor"
-                    description="This dashboard shows OpCache stats and allows you to flush cache entirely or for specific script.">
+                    title={this.i18n('OpCache Monitor')}
+                    description={this.i18n('This dashboard shows OpCache stats and allows you to flush cache entirely or for specific script.')}>
                     <Logic.Hide if={!this.state.data}>
-                        <ClickConfirm message="Are you sure you want to flush entire cache?">
+                        <ClickConfirm message={this.i18n('Are you sure you want to flush entire cache?')}>
                             <Button
                                 type="primary"
-                                label="Flush entire cache"
+                                label={this.i18n('Flush entire cache')}
                                 icon="fa-trash-o"
                                 align="right"
                                 onClick={this.flushAllCache}/>

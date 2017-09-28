@@ -2,6 +2,9 @@ import React from 'react';
 import Webiny from 'webiny';
 import Dashboard from './Dashboard';
 
+/**
+ * @i18n.namespace SystemMonitor.Backend.OpCacheMonitor
+ */
 class Module extends Webiny.App.Module {
 
     init() {
@@ -9,9 +12,9 @@ class Module extends Webiny.App.Module {
         const Menu = Webiny.Ui.Menu;
 
         this.registerMenus(
-            <Menu label="System" icon="icon-tools">
-                <Menu label="System Monitor">
-                    <Menu label="OpCache Monitor" route="SystemMonitor.OpCacheMonitor.Dashboard"/>
+            <Menu label={Webiny.I18n('System')} icon="icon-tools">
+                <Menu label={Webiny.I18n('System Monitor')}>
+                    <Menu label={Webiny.I18n('OpCache Monitor')} route="SystemMonitor.OpCacheMonitor.Dashboard"/>
                 </Menu>
             </Menu>
         );

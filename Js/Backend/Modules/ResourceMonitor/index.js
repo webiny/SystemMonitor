@@ -2,6 +2,9 @@ import React from 'react';
 import Webiny from 'webiny';
 import Dashboard from './Dashboard';
 
+/**
+ * @i18n.namespace SystemMonitor.Backend.ResourceMonitor
+ */
 class ResourceMonitor extends Webiny.App.Module {
 
     init() {
@@ -9,9 +12,9 @@ class ResourceMonitor extends Webiny.App.Module {
         const Menu = Webiny.Ui.Menu;
 
         this.registerMenus(
-            <Menu label="System" icon="icon-tools">
-                <Menu label="System Monitor">
-                    <Menu label="Resource Monitor" route="SystemMonitor.ResourceMonitor.Dashboard"/>
+            <Menu label={Webiny.I18n('System')} icon="icon-tools">
+                <Menu label={Webiny.I18n('System Monitor')}>
+                    <Menu label={Webiny.I18n('Resource Monitor')} route="SystemMonitor.ResourceMonitor.Dashboard"/>
                 </Menu>
             </Menu>
         );

@@ -22,6 +22,7 @@ class ApiSnapshot extends AbstractEntity
 {
     protected static $classId = 'SystemMonitor.Entities.ApiSnapshot';
     protected static $collection = 'SystemMonitorApiSnapshots';
+    protected static $i18nNamespace = 'SystemMonitorApiSnapshots';
 
     public function __construct()
     {

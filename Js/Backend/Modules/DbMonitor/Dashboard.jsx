@@ -1,6 +1,9 @@
 import React from 'react';
 import Webiny from 'webiny';
 
+/**
+ * @i18n.namespace SystemMonitor.Backend.DbMonitor.Dashboard
+ */
 class Dashboard extends Webiny.Ui.View {
     constructor(props) {
         super(props);
@@ -19,7 +22,7 @@ Dashboard.defaultProps = {
 
         const collectionList = {
             name: 'ns',
-            placeholder: 'Filter by namespace',
+            placeholder: this.i18n('Filter by namespace'),
             allowClear: true,
             api: '/services/system-monitor/db-profiles',
             url: '/namespaces',
@@ -28,14 +31,14 @@ Dashboard.defaultProps = {
 
         const operationList = {
             name: 'op',
-            placeholder: 'Filter by operation',
+            placeholder: this.i18n('Filter by operation'),
             allowClear: true,
             options: {
-                query: 'Query',
-                insert: 'Insert',
-                update: 'Update',
-                remove: 'Remove',
-                command: 'Command'
+                query: this.i18n('Query'),
+                insert: this.i18n('Insert'),
+                update: this.i18n('Update'),
+                remove: this.i18n('Remove'),
+                command: this.i18n('Command')
             }
         };
 
@@ -44,8 +47,8 @@ Dashboard.defaultProps = {
         return (
             <View.List>
                 <View.Header
-                    title="DB Monitor"
-                    description="This dashboard shows DB query details.">
+                    title={this.i18n('DB Monitor')}
+                    description={this.i18n('This dashboard shows DB query details.')}>
                 </View.Header>
                 <View.Body>
                     <List {...listProps}>
@@ -59,7 +62,7 @@ Dashboard.defaultProps = {
                                         <Select {...operationList} onChange={apply()}/>
                                     </Grid.Col>
                                     <Grid.Col all={2} className="pull-right">
-                                        <Button type="secondary" align="right" label="Reset Filters" onClick={reset()}/>
+                                        <Button type="secondary" align="right" label={this.i18n('Reset Filters')} onClick={reset()}/>
                                     </Grid.Col>
                                 </Grid.Row>
                             )}
@@ -68,14 +71,14 @@ Dashboard.defaultProps = {
                         <List.Table>
                             <List.Table.Row>
                                 <List.Table.RowDetailsField/>
-                                <List.Table.DateTimeField name="ts" align="center" label="Executed At" sort="ts"
+                                <List.Table.DateTimeField name="ts" align="center" label={this.i18n('Executed At')} sort="ts"
                                                           format="YYYY-MM-DD HH:mm:ss"/>
-                                <List.Table.Field name="ns" align="center" label="Namespace"/>
-                                <List.Table.Field name="op" align="center" label="Operation"/>
-                                <List.Table.Field name="docsExamined" align="center" label="Docs Examined" sort="docsExamined"/>
-                                <List.Table.Field name="nreturned" align="center" label="Docs Returned"/>
-                                <List.Table.Field name="keysExamined" align="center" label="Keys Examined"/>
-                                <List.Table.Field name="millis" align="center" label="Execution Time" sort="millis"/>
+                                <List.Table.Field name="ns" align="center" label={this.i18n('Namespace')}/>
+                                <List.Table.Field name="op" align="center" label={this.i18n('Operation')}/>
+                                <List.Table.Field name="docsExamined" align="center" label={this.i18n('Docs Examined')} sort="docsExamined"/>
+                                <List.Table.Field name="nreturned" align="center" label={this.i18n('Docs Returned')}/>
+                                <List.Table.Field name="keysExamined" align="center" label={this.i18n('Keys Examined')}/>
+                                <List.Table.Field name="millis" align="center" label={this.i18n('Execution Time')} sort="millis"/>
                             </List.Table.Row>
                             <List.Table.RowDetails>
                                 {({data}) => (

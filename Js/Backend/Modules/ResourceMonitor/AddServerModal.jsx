@@ -2,6 +2,9 @@ import React from 'react';
 import _ from 'lodash';
 import Webiny from 'webiny';
 
+/**
+ * @i18n.namespace SystemMonitor.Backend.ResourceMonitor.AddServerModal
+ */
 class AddServerModal extends Webiny.Ui.ModalComponent {
 
     renderDialog() {
@@ -15,28 +18,28 @@ class AddServerModal extends Webiny.Ui.ModalComponent {
                     {({model, form}) => (
                         <Modal.Content>
                             <Form.Loader/>
-                            <Modal.Header title="Add server to monitor" onClose={this.hide}/>
+                            <Modal.Header title={this.i18n('Add server to monitor')} onClose={this.hide}/>
                             <Modal.Body>
                                 <Grid.Row>
                                     <Grid.Col all={12}>
-                                        <Input label="Server name" name="name" validate="required"/>
-                                        <Select name="type" label="Server type" validate="required" placeholder="Server type">
-                                            <option value="web">Web server</option>
-                                            <option value="other">Other</option>
+                                        <Input label={this.i18n('Server name')} name="name" validate="required"/>
+                                        <Select name="type" label={this.i18n('Server type')} validate="required" placeholder={this.i18n('Server type')}>
+                                            <option value="web">{this.i18n('Web server')}</option>
+                                            <option value="other">{this.i18n('Other')}</option>
                                         </Select>
                                         <Logic.Hide if={_.get(model, 'type') !== 'web'}>
                                             <Input
-                                                label="Heartbeat URL"
+                                                label={this.i18n('Heartbeat URL')}
                                                 name="heartbeat"
                                                 validate="required,url"
-                                                description="This URL will be requested to see if server is alive. Provide a URL that does not require authentication."/>
+                                                description={this.i18n('This URL will be requested to see if server is alive. Provide a URL that does not require authentication.')}/>
                                         </Logic.Hide>
                                     </Grid.Col>
                                 </Grid.Row>
                             </Modal.Body>
                             <Modal.Footer>
-                                <Button label="Close" onClick={this.hide}/>
-                                <Button type="primary" label="Add" onClick={form.submit}/>
+                                <Button label={this.i18n('Close')} onClick={this.hide}/>
+                                <Button type="primary" label={this.i18n('Add')} onClick={form.submit}/>
                             </Modal.Footer>
                         </Modal.Content>
                     )}

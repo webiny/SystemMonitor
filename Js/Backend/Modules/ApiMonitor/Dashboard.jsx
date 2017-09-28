@@ -3,6 +3,9 @@ import _ from 'lodash';
 import Webiny from 'webiny';
 import Graph from './Graph';
 
+/**
+ * @i18n.namespace SystemMonitor.Backend.ApiMonitor.Dashboard
+ */
 class Dashboard extends Webiny.Ui.View {
     constructor(props) {
         super(props);
@@ -13,11 +16,11 @@ class Dashboard extends Webiny.Ui.View {
         };
         this.interval = null;
         this.options = {
-            '1h': 'Last hour',
-            '6h': 'Last 6 hours',
-            '24h': 'Last 24 hours',
-            '7d': 'Last 7 days',
-            '30d': 'Last 30 days'
+            '1h': this.i18n('Last hour'),
+            '6h': this.i18n('Last 6 hours'),
+            '24h': this.i18n('Last 24 hours'),
+            '7d': this.i18n('Last 7 days'),
+            '30d': this.i18n('Last 30 days')
         };
     }
 
@@ -81,14 +84,14 @@ class Dashboard extends Webiny.Ui.View {
     }
 
     getApiRequests(snapshots) {
-        const cacheHit = ['Cache Hit'].concat(_.map(snapshots, x => x.hitCount));
-        const cacheMiss = ['Cache Miss'].concat(_.map(snapshots, x => x.missCount));
+        const cacheHit = [Webiny.I18n('Cache Hit')].concat(_.map(snapshots, x => x.hitCount));
+        const cacheMiss = [Webiny.I18n('Cache Miss')].concat(_.map(snapshots, x => x.missCount));
 
         return this.getLineChartConfig(snapshots, [cacheHit, cacheMiss]);
     }
 
     getResponseTime(snapshots) {
-        const responseTime = ['Mean response time (ms)'].concat(_.map(snapshots, x => (x.totalTime / x.numRequests).toFixed(2)));
+        const responseTime = [Webiny.I18n('Mean response time (ms)')].concat(_.map(snapshots, x => (x.totalTime / x.numRequests).toFixed(2)));
 
         return this.getLineChartConfig(snapshots, [responseTime]);
     }
@@ -104,7 +107,7 @@ Dashboard.defaultProps = {
         };
 
         const searchProps = {
-            placeholder: 'Search by URL',
+            placeholder: this.i18n('Search by URL'),
             name: '_searchQuery'
         };
 
@@ -112,11 +115,11 @@ Dashboard.defaultProps = {
 
         const change = (
             <Dropdown title={this.options[this.state.snapshotsRange]} className="balloon">
-                <Dropdown.Link title="Last hour" onClick={() => this.loadStats('1h')}/>
-                <Dropdown.Link title="Last 6 hours" onClick={() => this.loadStats('6h')}/>
-                <Dropdown.Link title="Last 24 hours" onClick={() => this.loadStats('24h')}/>
-                <Dropdown.Link title="Last 7 days" onClick={() => this.loadStats('7d')}/>
-                <Dropdown.Link title="Last 30 days" onClick={() => this.loadStats('30d')}/>
+                <Dropdown.Link title={this.i18n('Last hour')} onClick={() => this.loadStats('1h')}/>
+                <Dropdown.Link title={this.i18n('Last 6 hours')} onClick={() => this.loadStats('6h')}/>
+                <Dropdown.Link title={this.i18n('Last 24 hours')} onClick={() => this.loadStats('24h')}/>
+                <Dropdown.Link title={this.i18n('Last 7 days')} onClick={() => this.loadStats('7d')}/>
+                <Dropdown.Link title={this.i18n('Last 30 days')} onClick={() => this.loadStats('30d')}/>
             </Dropdown>
         );
 
@@ -124,18 +127,18 @@ Dashboard.defaultProps = {
             <api-monitor>
                 <View.Dashboard>
                     <View.Header
-                        title="API Monitor"
-                        description="This dashboard shows API response times and cache efficiency.">
+                        title={this.i18n('API Monitor')}
+                        description={this.i18n('This dashboard shows API response times and cache efficiency.')}>
                     </View.Header>
                     <View.Body>
                         <Grid.Row>
                             <Grid.Col all={6}>
-                                <View.ChartBlock title="API Requests" description={change}>
+                                <View.ChartBlock title={this.i18n('API Requests')} description={change}>
                                     <Graph config={this.getApiRequests(this.state.snapshots)}/>
                                 </View.ChartBlock>
                             </Grid.Col>
                             <Grid.Col all={6}>
-                                <View.ChartBlock title="API Response Time" description={change}>
+                                <View.ChartBlock title={this.i18n('API Response Time')} description={change}>
                                     <Graph config={this.getResponseTime(this.state.snapshots)}/>
                                 </View.ChartBlock>
                             </Grid.Col>
@@ -144,7 +147,7 @@ Dashboard.defaultProps = {
                 </View.Dashboard>
                 <View.List>
                     <View.Body>
-                        <h2>API Log</h2>
+                        <h2>{this.i18n('API Log')}</h2>
                         <List {...listProps}>
                             <List.FormFilters>
                                 {({apply, reset}) => (
@@ -153,17 +156,17 @@ Dashboard.defaultProps = {
                                             <Input {...searchProps} onEnter={apply()}/>
                                         </Grid.Col>
                                         <Grid.Col all={2}>
-                                            <Button type="secondary" align="right" label="Reset Filters" onClick={reset()}/>
+                                            <Button type="secondary" align="right" label={this.i18n('Reset Filters')} onClick={reset()}/>
                                         </Grid.Col>
                                     </Grid.Row>
                                 )}
                             </List.FormFilters>
                             <List.Table>
                                 <List.Table.Row>
-                                    <List.Table.Field name="method" align="left" label="Method" sort="method"/>
-                                    <List.Table.Field name="url" align="left" label="URL" sort="url"/>
-                                    <List.Table.Field name="referer" align="left" label="Referrer" sort="referer"/>
-                                    <List.Table.Field name="responseTime" align="center" label="Response Time" sort="responseTime"/>
+                                    <List.Table.Field name="method" align="left" label={this.i18n('Method')} sort="method"/>
+                                    <List.Table.Field name="url" align="left" label={this.i18n('URL')} sort="url"/>
+                                    <List.Table.Field name="referer" align="left" label={this.i18n('Referrer')} sort="referer"/>
+                                    <List.Table.Field name="responseTime" align="center" label={this.i18n('Response Time')} sort="responseTime"/>
                                 </List.Table.Row>
                             </List.Table>
                             <List.Pagination/>
